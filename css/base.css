@@ -1,0 +1,50 @@
+/* Base element behavior */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto;
+}
+
+/* Image Protection (Prevents copying, dragging, right-click, and long-press) */
+img {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+    font-variant-east-asian: normal;
+    font-feature-settings: "palt" 0;
+}
+
+/* 這是給 JavaScript 使用的：當辨識到英文時，強制將字距歸零 */
+.en-text {
+    letter-spacing: 0 !important;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 內文全域對齊設定：針對中英文混排的最佳實踐 */
+p {
+    text-align: justify;
+    text-justify: inter-ideograph;
+    word-break: break-word; /* 避免過長英文字撐破版面 */
+    overflow-wrap: break-word;
+}
+
