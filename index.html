@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chanwei</title>
+    <link rel="icon" type="image/png" href="picture/index/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo"><img src="picture/index/logo.png" alt="logo"></div>
+        <nav class="nav-pill">
+            <a href="#work" class="active">• Work</a>
+            <a href="about.html">About</a>
+            <a href="https://drive.google.com/file/d/1KGHvCbsBQpQbQfsNoHwlUCO3hRFraOjI/view?usp=drive_link"
+                target="_blank" rel="noopener noreferrer">Resume</a>
+        </nav>
+        <div class="header-right"></div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <img src="picture/index/Chanwei.png" alt="chanwei"
+                        style="width: 100%; max-height: 55vh; object-fit: contain; object-position: bottom; display: block;">
+                </h1>
+
+                <!-- Floating Elements (您可以透過修改 style 裡的變數來自由調色，例如：--pill-bg-color 調整背景色, --pill-border-color 調整邊框, --pill-text-color 調整文字顏色) -->
+                <div class="floating-pill pill-1"
+                    style="--pill-bg-color: #ffffff; --pill-border-color: #242424; --pill-text-color: #242424;">In
+                    Progress</div>
+                <div class="floating-pill pill-2"
+                    style="--pill-bg-color: #FFBFAA; --pill-border-color: #242424; --pill-text-color: #000000;">
+                    <svg class="triangle-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M 35 30 Q 50 0 65 30 L 85 70 Q 95 90 75 90 L 25 90 Q 5 90 15 70 Z" />
+                    </svg>
+                    <span class="pill-text">Problem<br>Framing</span>
+                </div>
+                <div class="floating-pill pill-3"
+                    style="--pill-bg-color: #CBEFE9; --pill-border-color: #242424; --pill-text-color: #000000;">
+                    Design<br>Research</div>
+
+                <div class="hero-image-wrapper">
+                    <img src="picture/index/mememee.jpg" alt="mememee" class="hero-image">
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="about-left">
+                <p>我是展蔚 👋<br>我關注設計如何創造環境友善、社會包容與文化延續的系統與體驗</p>
+                <a href="about.html" class="about-btn">More about me →</a>
+            </div>
+            <div class="about-right">
+
+                <p>面對開放式的設計議題，我喜歡透過大量發散來辨識問題的潛在成因與限制條件；我也喜歡研究人在特定情境中的意圖與行動門檻，並思考設計如何讓行動更自然地發生。
+                </p>
+            </div>
+        </section>
+
+        <section class="work" id="work">
+            <div class="work-header">
+                <h2>Selected Work</h2>
+            </div>
+
+            <div class="work-grid">
+                <!-- Project 1 -->
+                <a href="https://drive.google.com/file/d/1f2S82v6Rvk2MEbF2WRa4vrXelAE3sOHP/view?usp=sharing"
+                    target="_blank" rel="noopener noreferrer" class="work-card-wrapper coming-soon"
+                    data-tags="永續設計,設計開發策略" style="text-decoration: none; color: inherit;">
+                    <div class="work-card">
+                        <div class="work-image-wrapper">
+                            <img src="picture/index/cover_reusable box.png" alt="從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略">
+                            <div class="coming-soon-overlay">
+                                <span>Coming soon</span>
+                                <span style="font-family: var(--font-tc); margin-top: -8px;">(點擊查看研究全文)</span>
+                            </div>
+                        </div>
+                        <div class="work-tags">
+                            <span class="work-tag">永續設計</span>
+                            <span class="work-tag">設計開發策略</span>
+                        </div>
+                        <h3 class="work-title">從產品生命週期與永續行為設計探討<br>循環餐盒綠色設計開發策略</h3>
+                        <p class="work-desc">
+                            從產品設計開發角度切入，檢視循環餐盒如何在產品服務系統中成立，探究其產品生命週期各階段設計條件、消費者採用行為阻礙與設計介入機會，以及系統推行與規模化條件，並建構產品生命週期綠色設計與永續行為設計準則。
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a href="energysaver.html" class="work-card-wrapper" data-tags="UI/UX"
+                    style="text-decoration: none; color: inherit;">
+                    <div class="work-card">
+                        <div class="work-image-wrapper">
+                            <img src="picture/index/cover_energy saver.png" alt="Energy Saver - 節能家電選購決策支援 APP">
+                        </div>
+                        <div class="work-tags">
+                            <span class="work-tag">UI/UX</span>
+                        </div>
+                        <h3 class="work-title">Energy Saver<br>節能家電選購決策支援 APP</h3>
+                        <p class="work-desc">
+                            透過桌面分析與顧客旅程地圖梳理節能選購決策流失點。並於 APP
+                            介面規劃中，將生活條件轉化為規格建議之搜尋邊界、放大能效資訊的可見性，並將長期成本、能效規格與評價資訊前置於比較介面中，輔助使用者建立選購判斷。
+                        </p>
+                    </div>
+                </a>
+
+                <!-- Project 3 -->
+                <a href="workshop.html" class="work-card-wrapper" data-tags="服務設計,WORKSHOP"
+                    style="text-decoration: none; color: inherit;">
+                    <div class="work-card">
+                        <div class="work-image-wrapper">
+                            <img src="picture/index/cover_icid.webp" alt="ICID 跨文化整合設計工作營">
+                        </div>
+                        <div class="work-tags">
+                            <span class="work-tag">服務設計</span>
+                            <span class="work-tag">WORKSHOP</span>
+                        </div>
+                        <h3 class="work-title">ICID 跨文化整合設計工作營<br>(議程/引導師)</h3>
+                        <p class="work-desc">
+                            擔任議程與引導師角色，協助工作營對內流程規劃與對外溝通文本的主題校準；並於工作營引導不同背景學員在田野觀察發掘地方文化價值、辨識服務體驗缺口，學習應用服務設計工具，於共創過程中發展回應在地需求的設計提案。
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section class="archive-section">
+            <div class="archive-header-wrapper">
+                <h2>其他研究與專案經驗</h2>
+                <p>展開後可快速了解專案背景、核心工作與成果脈絡</p>
+            </div>
+
+            <div class="archive-list">
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2024</div>
+                            <div class="archive-title">雲林縣古坑鄉樟湖社區野生民俗植物調查應用於里山倡議之研究</div>
+                        </div>
+                        <div class="archive-col type">地方議題研究</div>
+                        <div class="archive-col tasks scroll-hover">隨行訪談法、非結構式田野訪談(國臺語)、地方知識盤點</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>以野菜應用於生態導覽的地方口述知識保存出發，三度往返社區，並以滾雪球方式深度訪談 6
+                                    位居民。過程親自跟隨居民於社區路線中採集植物，或由報導人採集後進行現場講解，最終盤點 66
+                                    項民俗植物利用方式，並收斂為食用、藥用、生活用具、建築材料、農業用具、衣飾染料與環境徵候觀察等七類知識。</p>
+                                <p>後續將整理成果轉化為 LINE@ 概念原型與 Notion
+                                    資料庫，供社區生態導覽與創生計畫之基礎。同時，依據深度訪談洞察，透過里山系統視角，梳理社區在知識斷層、生態觀光衝擊與除草劑濫用等韌性困境，並提出初步改善方向。</p>
+
+                            </div>
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg1.webp" alt="Mount Veg 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg2.webp" alt="Mount Veg 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg3.webp" alt="Mount Veg 3">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg4.webp" alt="Mount Veg 4">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg5.webp" alt="Mount Veg 5">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/mount_veg6.webp" alt="Mount Veg 6">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2024</div>
+                            <div class="archive-title">從原住民文化資源建構文化路徑之研究－以鄒族來吉部落為例</div>
+                        </div>
+                        <div class="archive-col type">地方議題研究</div>
+                        <div class="archive-col tasks scroll-hover">參與式觀察、半結構式訪談、地方知識轉譯</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>以社區導覽劇本為起點，深度訪談農業實務者、民宿經營者、社區發展協會成員等三位關鍵報導人。後續以文化路徑作為轉譯結構，透過SWOT分析洞察現況與機會，以及「地域文化」架構，將文化資源收斂為「地方、文化、生態、產業」四大面向。
+                                </p>
+                                <p>進一步萃取「來吉遷徙的動態特徵轉變」與「交織自然敬畏觀念的狩獵文化集神話傳說」兩項核心脈絡，提出「聖山下的山豬部落」作為路徑主題，將無形敘事串連至具體場域，勾勒成一套可走讀的文化路線。
+                                </p>
+                            </div>
+
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/ Cultural Routes 1.png" alt="Cultural Routes 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/ Cultural Routes 2.png" alt="Cultural Routes 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/ Cultural Routes 3.png" alt="Cultural Routes 3">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/ Cultural Routes 4.png" alt="Cultural Routes 4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2024</div>
+                            <div class="archive-title">臺法國際工藝材料研創工作坊</div>
+                        </div>
+                        <div class="archive-col type">跨文化共創</div>
+                        <div class="archive-col tasks">工藝設計與發表</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>以學員身份與一名台灣工業設計、兩名法國 École Boulle
+                                    工藝系大學生組成跨領域團隊，嘗試以「竹」與「蓪草紙」開發現代燈具。專案挑戰在於蓪草紙缺乏纖維拉力，切割時極易順著紋理開裂；在拼接上，重疊過多會影響透光的極簡美感，過少又難以支撐成型。
+                                </p>
+                                <p>為此，我們在多種拼接形式與重疊寬度反覆測試，最終成功撐起結構，於工藝中心順利發表（儘管作品在發表後因搬運而無情開裂，卻也真實記錄下工藝探索的未竟之美~</p>
+                            </div>
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang1.webp" alt="Hitang 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang2.webp" alt="Hitang 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang3.webp" alt="Hitang 3">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang4.webp" alt="Hitang 4">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang5.webp" alt="Hitang 5">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang6.webp" alt="Hitang 6">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang7.webp" alt="Hitang 7">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang8.webp" alt="Hitang 8">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/hitang9.webp" alt="Hitang 9">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2023</div>
+                            <div class="archive-title">賽德克族中原部落「織布的家」街角館展示文本策劃</div>
+                        </div>
+                        <div class="archive-col type">地方文化轉譯</div>
+                        <div class="archive-col tasks">半結構式訪談、展示文本策劃</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>主要負責將訪談與現場觀察中取得的部落織布文化素材，轉譯為可公開展示的街角館文本。工作涵蓋：「熊肯作織布的家」組織介紹、創辦人的返鄉與創立脈絡、紋飾美學，及織布技藝的傳承價值。
+                                </p>
+                                <p>在紋飾美學部分，主動根據訪談內容與現場資料，將部落的創新圖騰，收斂為「自然環境、人文故事、傳統紋飾重組」三大分類；將原本依賴現場詢問才能理解的紋飾意涵，轉化為觀者能自主閱讀、並與店家展開攀談的展示資訊。
+                                    <br>(最終展板由後續團隊重新編排、補齊團隊成員介紹、小遊程教案內容等擴充)
+                                </p>
+                            </div>
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/corner museum1.webp" alt="Corner Museum 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/corner museum2.webp" alt="Corner Museum 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/corner museum3.webp" alt="Corner Museum 3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2023</div>
+                            <div class="archive-title">斗六舊城藝術季「流香溪影」展品策劃</div>
+                        </div>
+                        <div class="archive-col type">參與式設計</div>
+                        <div class="archive-col tasks">敘事探究、工作坊、展示文本策劃</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>以場域觀察發現掀蓋後的雲林溪，部分河段呈水流緩慢、異味與垃圾棄置等環境現象，並以此定錨為藝術季展品主題，期盼喚起民眾對環境維護的意識。</p>
+                                <p>在設計上，我們與長照據點合作辦理工作坊，藉由曾見證過雲林溪封蓋變遷的長者，重新透過歷史影像、生態現況解說，與便利貼互動引導，邀請長者分享過往的溪畔記憶，以及對現階段的期許。
+                                </p>
+                                <p>工作坊也邀請舊城傳統手工天然製香師傅，帶領長者認識天然製香材料，並透過嗅香與手捏香泥創作，讓長者以氣味、觸覺與自然材料為媒介，將對河川未來樣貌的期待，具象化為實體展品。
+                                </p>
+                            </div>
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/river1.webp" alt="River 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river2.webp" alt="River 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river3.webp" alt="River 3">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river4.webp" alt="River 4">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river5.webp" alt="River 5">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river6.webp" alt="River 6">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river7.webp" alt="River 7">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river8.webp" alt="River 8">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river9.webp" alt="River 9">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river10.webp" alt="River 10">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river11.webp" alt="River 11">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/river12.webp" alt="River 12">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-item">
+                    <div class="archive-item-header">
+                        <div class="archive-col name">
+                            <div class="archive-year">2023</div>
+                            <div class="archive-title">高齡者道路標誌褪色視認度之研究</div>
+                        </div>
+                        <div class="archive-col type">小型實驗觀察</div>
+                        <div class="archive-col tasks">實驗設計</div>
+                        <div class="archive-col toggle">
+                            <span class="toggle-icon"></span>
+                        </div>
+                    </div>
+                    <div class="archive-item-content">
+                        <div class="archive-inner-content">
+                            <div class="archive-text-content">
+                                <p>研究以高齡者作為視認敏感觀察對象，檢視道路標誌在長期褪色、低對比與環境光線變化下，是否仍維持穩定辨識。測試參考交通部《道路交通標誌標線號誌設置規則》中的標準圖像與色彩編號，並借用
+                                    WCAG 2.0 色彩對比計算方式，建立褪色程度的量化指標。</p>
+                                <p>實驗招募 8 名 65
+                                    歲以上、視力矯正正常且無色盲之高齡者，進行模擬情境測試，並以可視性（Visibility）與可讀性（Legibility）作為分析構面。實驗過程發現，簡單數字、圖像與方向性符號在褪色後仍有較高辨識度；文字或結構複雜的圖像，則容易因輪廓弱化與背景對比下降而降低視認性。
+                                </p>
+                                <p>在色彩對比分析，在本研究測試情境下，高齡者對不同色彩組合的最低可辨識對比度約為：紅底白字 5:1；藍底白字 6:1；綠底白字約 4:1；棕底白字與橙底黑字約
+                                    8:1，黃底黑字則需提高至約 11:1。結果屬小型研究觀察，目的在於提供戶外公共導視與資訊標示系統在褪色檢核、色彩維護與可讀性評估上的初步參考。</p>
+                            </div>
+                            <div class="gallery-container">
+                                <div class="horizontal-slider">
+                                    <div class="slider-track">
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye1.webp" alt="Eye 1">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye2.webp" alt="Eye 2">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye3.webp" alt="Eye 3">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye4.webp" alt="Eye 4">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye5.webp" alt="Eye 5">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye6.webp" alt="Eye 6">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye7.webp" alt="Eye 7">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye8.webp" alt="Eye 8">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye9.webp" alt="Eye 9">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye10.webp" alt="Eye 10">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye11.webp" alt="Eye 11">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye12.webp" alt="Eye 12">
+                                        </div>
+                                        <div class="slide-item">
+                                            <img src="picture/index/eye13.webp" alt="Eye 13">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slider-pagination">
+                                    <button class="dot active"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                    <button class="dot"></button>
+                                </div>
+                                <div class="slider-scrollbar">
+                                    <div class="slider-scrollbar-thumb"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-greeting">謝謝你的造訪，很高興在這裡與你相遇 ～</div>
+            <div class="footer-bottom">
+                <div class="footer-left">Contact / <a href="mailto:lien.chanwei@gmail.com">lien.chanwei@gmail.com</a>
+                </div>
+                <div class="footer-right">© 2026 Chanwei Lien</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <!-- Lightbox Modal -->
+    <div id="image-lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <button class="lightbox-nav prev" aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <img class="lightbox-content" id="lightbox-img">
+        <button class="lightbox-nav next" aria-label="Next image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+    <!-- Hover Image Preview Container -->
+    <div id="hover-preview-container">
+        <img id="hover-preview-img" src="" alt="preview">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

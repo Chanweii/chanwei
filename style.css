@@ -1,0 +1,8 @@
+/* Temporary compatibility entrypoint. Prefer loading the layer files directly in new pages. */
+@import url("css/tokens.css");
+@import url("css/base.css");
+@import url("css/typography.css");
+@import url("css/layout.css");
+@import url("css/components.css");
+@import url("css/case.css");
+@import url("css/projects/workshop.css");
