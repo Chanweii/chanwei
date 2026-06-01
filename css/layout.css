@@ -10,7 +10,8 @@
     z-index: 100;
     max-width: 1920px;
     margin: 0 auto;
-    background-color: var(--white); /* 首頁上半段改為純白 */
+    background-color: var(--white);
+    /* 首頁上半段改為純白 */
     --header-element-height: 3.5rem;
 }
 
@@ -85,7 +86,8 @@
     align-items: flex-end;
     justify-content: center;
     border-bottom: 1px solid var(--border-color);
-    background-color: var(--white); /* 首頁上半段改為純白 */
+    background-color: var(--white);
+    /* 首頁上半段改為純白 */
     overflow: hidden;
     /* 防止物理標籤飛出邊界時拉長頁面 */
 }
@@ -289,7 +291,8 @@
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: -0.03em;
-    margin-left: 8px; /* Optical Alignment / Compensation for 20px border-radius below */
+    margin-left: 8px;
+    /* Optical Alignment / Compensation for 20px border-radius below */
 }
 
 .work-filters {
@@ -489,7 +492,8 @@
 }
 
 .work-desc {
-    font-size: 15px; /* was 1rem (16px) */
+    font-size: 15px;
+    /* was 1rem (16px) */
     font-weight: 400;
     line-height: 28px;
     color: var(--text-body);
@@ -513,8 +517,20 @@
 /* Responsive */
 @media (max-width: 1024px) {
     .about {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .about-left,
+    .about-right {
+        display: contents;
+    }
+
+    .about-btn {
+        order: 3;
+        margin-top: 0.5rem;
+        align-self: flex-start;
     }
 
     .hero-title {
@@ -648,14 +664,17 @@
     font-weight: 700;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
-    margin-left: 0; /* Strictly flush left */
+    margin-left: 0;
+    /* Strictly flush left */
 }
 
 .archive-header-wrapper p {
-    font-size: 15px; /* Match .work-desc */
+    font-size: 15px;
+    /* Match .work-desc */
     color: var(--text-secondary);
     line-height: 28px;
-    margin-left: 0; /* Strictly flush left */
+    margin-left: 0;
+    /* Strictly flush left */
     max-width: 800px;
 }
 
@@ -670,7 +689,8 @@
 }
 
 .archive-item:hover {
-    border-color: #222222; /* Hover 時底線變黑 */
+    border-color: #222222;
+    /* Hover 時底線變黑 */
 }
 
 .archive-item:first-child {
@@ -680,59 +700,73 @@
 .archive-item-header {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem; /* Match grid gutter */
+    gap: 1.5rem;
+    /* Match grid gutter */
     align-items: center;
-    padding: 1.5rem 0; /* Remove full-bleed padding */
+    padding: 1.5rem 0;
+    /* Remove full-bleed padding */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border-bottom: 1px solid transparent; /* 預留標題下方的線 */
+    border-bottom: 1px solid transparent;
+    /* 預留標題下方的線 */
 }
 
 .archive-item-header:hover {
-    background-color: #f6f6f6; /* Lighter hover background */
+    background-color: #f6f6f6;
+    /* Lighter hover background */
 }
 
 .archive-item.active .archive-item-header {
-    border-bottom-color: #222222; /* 展開時標題下方的線變黑 */
+    border-bottom-color: #222222;
+    /* 展開時標題下方的線變黑 */
 }
 
 .archive-col {
-    font-size: 17px; /* 1.0625rem, changed from 16px */
+    font-size: 17px;
+    /* 1.0625rem, changed from 16px */
     color: var(--text-primary);
     font-weight: 500;
     line-height: 1.4;
 }
 
 .archive-col.name {
-    grid-column: 1 / span 5; /* 第一欄再往右更寬 (1-5) */
+    grid-column: 1 / span 5;
+    /* 第一欄再往右更寬 (1-5) */
     display: flex;
     flex-direction: column;
-    gap: 4px; /* Title 與年份之間的間距 */
+    gap: 4px;
+    /* Title 與年份之間的間距 */
 }
 
 .archive-year {
     font-size: 15px;
-    color: var(--text-secondary); /* 或您偏好的較淺顏色 */
+    color: var(--text-secondary);
+    /* 或您偏好的較淺顏色 */
     font-weight: 400;
     line-height: 1;
 }
 
 .archive-title {
     font-size: inherit;
-    font-weight: inherit;
+    font-weight: 700;
     color: inherit;
     line-height: inherit;
 }
 
 .archive-col.type {
-    grid-column: 7 / span 2; /* 第二欄再往右與about的a對齊 (7-8) */
-    color: var(--text-secondary);
-    text-align: left; /* Align left based on grid design */
+    grid-column: 7 / span 2;
+    /* 第二欄再往右與about的a對齊 (7-8) */
+    color: #606060;
+    font-weight: 400;
+    text-align: left;
+    /* Align left based on grid design */
 }
 
 .archive-col.tasks {
-    grid-column: 9 / span 3; /* 第三欄對齊導航pill 尾巴 (9-11) */
-    color: var(--text-secondary);
+    grid-column: 9 / span 3;
+    /* 第三欄對齊導航pill 尾巴 (9-11) */
+    color: #606060;
+    font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
     /* 預設隱藏超出的部分，並加上漸層淡出效果讓邊界更柔和 */
@@ -749,8 +783,10 @@
     0% {
         text-indent: 0;
     }
+
     100% {
-        text-indent: -120px; /* 根據文字超出長度微調的位移量 */
+        text-indent: -120px;
+        /* 根據文字超出長度微調的位移量 */
     }
 }
 
@@ -758,7 +794,8 @@
     grid-column: span 1;
     display: flex;
     justify-content: flex-end;
-    padding-right: 24px; /* 對稱留白 */
+    padding-right: 24px;
+    /* 對稱留白 */
 }
 
 /* Tablet Layout (max-width: 1024px) */
@@ -766,16 +803,20 @@
     .archive-item-header {
         grid-template-columns: 1fr auto 40px;
     }
+
     .archive-col.name,
     .archive-col.type,
     .archive-col.toggle {
         grid-column: auto;
     }
+
     .archive-col.tasks {
         display: none !important;
     }
+
     .archive-col.type {
-        text-align: right; /* Align right on tablet next to arrow */
+        text-align: right;
+        /* Align right on tablet next to arrow */
     }
 }
 
@@ -786,16 +827,20 @@
         gap: 0.5rem 1rem;
         padding: 1.25rem 0;
     }
+
     .archive-col.name {
         grid-column: 1;
         grid-row: 1;
     }
+
     .archive-col.type {
         grid-column: 1;
         grid-row: 2;
-        text-align: left; /* Align left under title on mobile */
+        text-align: left;
+        /* Align left under title on mobile */
         font-size: 0.875rem;
     }
+
     .archive-col.toggle {
         grid-column: 2;
         grid-row: 1 / span 2;
@@ -834,11 +879,13 @@
 }
 
 .archive-item.active .toggle-icon {
-    transform: rotate(90deg); /* Rotate whole container by 90deg */
+    transform: rotate(90deg);
+    /* Rotate whole container by 90deg */
 }
 
 .archive-item.active .toggle-icon::before {
-    transform: translate(-50%, -50%) scaleX(0); /* Horizontal line shrinks to 0 */
+    transform: translate(-50%, -50%) scaleX(0);
+    /* Horizontal line shrinks to 0 */
 }
 
 .archive-item.active .toggle-icon::after {
@@ -859,9 +906,12 @@
 }
 
 .archive-inner-content {
-    padding: 24px 0 60px 0; /* 上下留白 */
-    color: #222222; /* High contrast text on gray background */
-    font-size: 15px; /* was 1rem (16px) */
+    padding: 24px 0 60px 0;
+    /* 上下留白 */
+    color: #222222;
+    /* High contrast text on gray background */
+    font-size: 15px;
+    /* was 1rem (16px) */
     line-height: 28px;
     display: flex;
     flex-direction: column;
@@ -872,19 +922,23 @@
    Swiss Grid Refactoring (Desktop Only)
    ========================================= */
 @media (min-width: 1025px) {
+
     /* 1. Header */
     .header {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         gap: var(--grid-gap);
     }
+
     .logo {
         grid-column: 1 / span 3;
     }
+
     .nav-pill {
         grid-column: 5 / span 4;
         justify-self: center;
     }
+
     .header-right {
         grid-column: 10 / span 3;
     }
@@ -894,10 +948,12 @@
         grid-template-columns: repeat(12, 1fr);
         gap: var(--grid-gap);
     }
+
     .about-left {
         grid-column: 2 / span 5;
         padding-left: 0;
     }
+
     .about-right {
         grid-column: 7 / span 5;
         padding-right: 0;
@@ -908,6 +964,7 @@
         grid-template-columns: repeat(12, 1fr);
         gap: 3.5rem var(--grid-gap);
     }
+
     .work-card-wrapper {
         grid-column: span 4;
     }
@@ -916,56 +973,65 @@
     .archive-inner-content {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
-        gap: 1.5rem; /* Match header gap */
+        gap: 1.5rem;
+        /* Match header gap */
         align-items: flex-start;
     }
 
     .archive-text-content {
-        grid-column: 1 / span 5; /* Matches name column */
+        grid-column: 1 / span 5;
+        /* Matches name column */
         /* Removed padding-left: 24px to align with name column */
         min-width: 0;
     }
-    
+
     .archive-text-content p {
-        margin-bottom: 14px; /* 半行的行距 */
+        margin-bottom: 14px;
+        /* 半行的行距 */
     }
 
     .archive-text-content p:last-child {
         margin-bottom: 0;
     }
-    
+
     .archive-text-content p:first-child {
-        margin-top: 0; /* Align text with top of container */
+        margin-top: 0;
+        /* Align text with top of container */
     }
 
     .archive-inner-content .gallery-container {
-        grid-column: 7 / span 6; /* Starts at col 7, spans to end, leaves col 6 as gap */
+        grid-column: 7 / span 6;
+        /* Starts at col 7, spans to end, leaves col 6 as gap */
         min-width: 0;
     }
 
     .archive-inner-content .horizontal-slider {
-        padding-top: 0; /* Align image with top of container */
+        padding-top: 0;
+        /* Align image with top of container */
     }
 }
+
 /* =========================================
    Hover Image Preview (Desktop Only)
    ========================================= */
 #hover-preview-container {
-    display: none !important; /* Temporarily disabled by user request */
+    display: none !important;
+    /* Temporarily disabled by user request */
     position: fixed;
     top: 50%;
     right: 15%;
     width: auto;
     height: auto;
-    pointer-events: none; /* Let clicks pass through */
+    pointer-events: none;
+    /* Let clicks pass through */
     opacity: 0;
     z-index: 9999;
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     /* Set initial transform for animation */
-    transform: translateY(-50%) scale(0.9) rotate(0deg); 
+    transform: translateY(-50%) scale(0.9) rotate(0deg);
 }
 
 #hover-preview-container.active {

@@ -17,7 +17,7 @@
     --white: #ffffff;
     --card-bg: #ffffff;
     --pill-bg: #e0e0e0;
-    --border-color: #e5e5e5;
+    --border-color: #d0d0d0; /* Darkened from #e5e5e5 for a stronger Swiss grid feel */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Typography */

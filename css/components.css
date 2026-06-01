@@ -657,3 +657,19 @@ figcaption {
     cursor: zoom-in;
     pointer-events: auto; /* Enable clicks on slider images */
 }
+
+/* Lazy Gallery Image Styling */
+.lazy-gallery-img {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
+}
+
+.lazy-gallery-img.loaded {
+    opacity: 1;
+}
+
+.slide-item img:not(.loaded) {
+    background-color: rgba(0, 0, 0, 0.05); /* Soft skeleton placeholder background */
+}
+
