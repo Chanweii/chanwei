@@ -11,11 +11,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <noscript>
+        <style>
+            .lazy-gallery-img {
+                display: none !important;
+            }
+        </style>
+    </noscript>
 </head>
 
 <body>
     <header class="header">
-        <div class="logo"><img src="picture/index/logo.png" alt="logo"></div>
+        <div class="logo"><img src="picture/index/logo.png" alt="logo" fetchpriority="high"></div>
         <nav class="nav-pill">
             <a href="#work" class="active">• Work</a>
             <a href="about.html">About</a>
@@ -29,7 +36,7 @@
         <section class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    <img src="picture/index/Chanwei.png" alt="chanwei"
+                    <img src="picture/index/Chanwei.png" alt="chanwei" fetchpriority="high"
                         style="width: 100%; max-height: 55vh; object-fit: contain; object-position: bottom; display: block;">
                 </h1>
 
@@ -49,7 +56,7 @@
                     Design<br>Research</div>
 
                 <div class="hero-image-wrapper">
-                    <img src="picture/index/mememee.jpg" alt="mememee" class="hero-image">
+                    <img src="picture/index/mememee.webp" alt="mememee" class="hero-image" fetchpriority="high">
                 </div>
             </div>
         </section>
@@ -78,7 +85,8 @@
                     data-tags="永續設計,設計開發策略" style="text-decoration: none; color: inherit;">
                     <div class="work-card">
                         <div class="work-image-wrapper">
-                            <img src="picture/index/cover_reusable box.png" alt="從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略">
+                            <img src="picture/index/cover_reusable box.webp" alt="從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略"
+                                loading="lazy" decoding="async">
                             <div class="coming-soon-overlay">
                                 <span>Coming soon</span>
                                 <span style="font-family: var(--font-tc); margin-top: -8px;">(點擊查看研究全文)</span>
@@ -100,7 +108,8 @@
                     style="text-decoration: none; color: inherit;">
                     <div class="work-card">
                         <div class="work-image-wrapper">
-                            <img src="picture/index/cover_energy saver.png" alt="Energy Saver - 節能家電選購決策支援 APP">
+                            <img src="picture/index/cover_energy saver.webp" alt="Energy Saver - 節能家電選購決策支援 APP"
+                                loading="lazy" decoding="async">
                         </div>
                         <div class="work-tags">
                             <span class="work-tag">UI/UX</span>
@@ -118,7 +127,8 @@
                     style="text-decoration: none; color: inherit;">
                     <div class="work-card">
                         <div class="work-image-wrapper">
-                            <img src="picture/index/cover_icid.webp" alt="ICID 跨文化整合設計工作營">
+                            <img src="picture/index/cover_icid.webp" alt="ICID 跨文化整合設計工作營" loading="lazy"
+                                decoding="async">
                         </div>
                         <div class="work-tags">
                             <span class="work-tag">服務設計</span>
@@ -135,7 +145,7 @@
         <section class="archive-section">
             <div class="archive-header-wrapper">
                 <h2>其他研究與專案經驗</h2>
-                <p>展開後可快速了解專案背景、核心工作與成果脈絡</p>
+
             </div>
 
             <div class="archive-list">
@@ -165,22 +175,46 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg1.webp" alt="Mount Veg 1">
+                                            <img data-src="picture/index/mount_veg1.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg1.webp"
+                                                    alt="Mount Veg 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg2.webp" alt="Mount Veg 2">
+                                            <img data-src="picture/index/mount_veg2.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg2.webp"
+                                                    alt="Mount Veg 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg3.webp" alt="Mount Veg 3">
+                                            <img data-src="picture/index/mount_veg3.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg3.webp"
+                                                    alt="Mount Veg 3"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg4.webp" alt="Mount Veg 4">
+                                            <img data-src="picture/index/mount_veg4.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 4" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg4.webp"
+                                                    alt="Mount Veg 4"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg5.webp" alt="Mount Veg 5">
+                                            <img data-src="picture/index/mount_veg5.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 5" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg5.webp"
+                                                    alt="Mount Veg 5"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/mount_veg6.webp" alt="Mount Veg 6">
+                                            <img data-src="picture/index/mount_veg6.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Mount Veg 6" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/mount_veg6.webp"
+                                                    alt="Mount Veg 6"></noscript>
                                         </div>
                                     </div>
                                 </div>
@@ -224,16 +258,32 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/ Cultural Routes 1.png" alt="Cultural Routes 1">
+                                            <img data-src="picture/index/ Cultural Routes 1.png"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Cultural Routes 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/ Cultural Routes 1.png"
+                                                    alt="Cultural Routes 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/ Cultural Routes 2.png" alt="Cultural Routes 2">
+                                            <img data-src="picture/index/ Cultural Routes 2.png"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Cultural Routes 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/ Cultural Routes 2.png"
+                                                    alt="Cultural Routes 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/ Cultural Routes 3.png" alt="Cultural Routes 3">
+                                            <img data-src="picture/index/ Cultural Routes 3.png"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Cultural Routes 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/ Cultural Routes 3.png"
+                                                    alt="Cultural Routes 3"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/ Cultural Routes 4.png" alt="Cultural Routes 4">
+                                            <img data-src="picture/index/ Cultural Routes 4.png"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Cultural Routes 4" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/ Cultural Routes 4.png"
+                                                    alt="Cultural Routes 4"></noscript>
                                         </div>
                                     </div>
                                 </div>
@@ -274,31 +324,58 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang1.webp" alt="Hitang 1">
+                                            <img data-src="picture/index/hitang1.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang1.webp" alt="Hitang 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang2.webp" alt="Hitang 2">
+                                            <img data-src="picture/index/hitang2.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang2.webp" alt="Hitang 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang3.webp" alt="Hitang 3">
+                                            <img data-src="picture/index/hitang3.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang3.webp" alt="Hitang 3"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang4.webp" alt="Hitang 4">
+                                            <img data-src="picture/index/hitang4.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 4" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang4.webp" alt="Hitang 4"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang5.webp" alt="Hitang 5">
+                                            <img data-src="picture/index/hitang5.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 5" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang5.webp" alt="Hitang 5"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang6.webp" alt="Hitang 6">
+                                            <img data-src="picture/index/hitang6.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 6" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang6.webp" alt="Hitang 6"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang7.webp" alt="Hitang 7">
+                                            <img data-src="picture/index/hitang7.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 7" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang7.webp" alt="Hitang 7"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang8.webp" alt="Hitang 8">
+                                            <img data-src="picture/index/hitang8.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 8" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang8.webp" alt="Hitang 8"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/hitang9.webp" alt="Hitang 9">
+                                            <img data-src="picture/index/hitang9.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Hitang 9" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/hitang9.webp" alt="Hitang 9"></noscript>
                                         </div>
                                     </div>
                                 </div>
@@ -345,13 +422,25 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/corner museum1.webp" alt="Corner Museum 1">
+                                            <img data-src="picture/index/corner museum1.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Corner Museum 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/corner museum1.webp"
+                                                    alt="Corner Museum 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/corner museum2.webp" alt="Corner Museum 2">
+                                            <img data-src="picture/index/corner museum2.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Corner Museum 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/corner museum2.webp"
+                                                    alt="Corner Museum 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/corner museum3.webp" alt="Corner Museum 3">
+                                            <img data-src="picture/index/corner museum3.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Corner Museum 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/corner museum3.webp"
+                                                    alt="Corner Museum 3"></noscript>
                                         </div>
                                     </div>
                                 </div>
@@ -392,40 +481,76 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/river1.webp" alt="River 1">
+                                            <img data-src="picture/index/river1.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river1.webp" alt="River 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river2.webp" alt="River 2">
+                                            <img data-src="picture/index/river2.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river2.webp" alt="River 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river3.webp" alt="River 3">
+                                            <img data-src="picture/index/river3.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river3.webp" alt="River 3"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river4.webp" alt="River 4">
+                                            <img data-src="picture/index/river4.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 4" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river4.webp" alt="River 4"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river5.webp" alt="River 5">
+                                            <img data-src="picture/index/river5.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 5" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river5.webp" alt="River 5"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river6.webp" alt="River 6">
+                                            <img data-src="picture/index/river6.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 6" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river6.webp" alt="River 6"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river7.webp" alt="River 7">
+                                            <img data-src="picture/index/river7.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 7" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river7.webp" alt="River 7"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river8.webp" alt="River 8">
+                                            <img data-src="picture/index/river8.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 8" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river8.webp" alt="River 8"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river9.webp" alt="River 9">
+                                            <img data-src="picture/index/river9.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 9" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river9.webp" alt="River 9"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river10.webp" alt="River 10">
+                                            <img data-src="picture/index/river10.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 10" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river10.webp" alt="River 10"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river11.webp" alt="River 11">
+                                            <img data-src="picture/index/river11.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 11" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river11.webp" alt="River 11"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/river12.webp" alt="River 12">
+                                            <img data-src="picture/index/river12.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="River 12" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/river12.webp" alt="River 12"></noscript>
                                         </div>
                                     </div>
                                 </div>
@@ -477,43 +602,82 @@
                                 <div class="horizontal-slider">
                                     <div class="slider-track">
                                         <div class="slide-item">
-                                            <img src="picture/index/eye1.webp" alt="Eye 1">
+                                            <img data-src="picture/index/eye1.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 1" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye1.webp" alt="Eye 1"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye2.webp" alt="Eye 2">
+                                            <img data-src="picture/index/eye2.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 2" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye2.webp" alt="Eye 2"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye3.webp" alt="Eye 3">
+                                            <img data-src="picture/index/eye3.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 3" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye3.webp" alt="Eye 3"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye4.webp" alt="Eye 4">
+                                            <img data-src="picture/index/eye4.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 4" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye4.webp" alt="Eye 4"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye5.webp" alt="Eye 5">
+                                            <img data-src="picture/index/eye5.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 5" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye5.webp" alt="Eye 5"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye6.webp" alt="Eye 6">
+                                            <img data-src="picture/index/eye6.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 6" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye6.webp" alt="Eye 6"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye7.webp" alt="Eye 7">
+                                            <img data-src="picture/index/eye7.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 7" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye7.webp" alt="Eye 7"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye8.webp" alt="Eye 8">
+                                            <img data-src="picture/index/eye8.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 8" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye8.webp" alt="Eye 8"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye9.webp" alt="Eye 9">
+                                            <img data-src="picture/index/eye9.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 9" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye9.webp" alt="Eye 9"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye10.webp" alt="Eye 10">
+                                            <img data-src="picture/index/eye10.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 10" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye10.webp" alt="Eye 10"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye11.webp" alt="Eye 11">
+                                            <img data-src="picture/index/eye11.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 11" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye11.webp" alt="Eye 11"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye12.webp" alt="Eye 12">
+                                            <img data-src="picture/index/eye12.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 12" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye12.webp" alt="Eye 12"></noscript>
                                         </div>
                                         <div class="slide-item">
-                                            <img src="picture/index/eye13.webp" alt="Eye 13">
+                                            <img data-src="picture/index/eye13.webp"
+                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+                                                alt="Eye 13" class="lazy-gallery-img">
+                                            <noscript><img src="picture/index/eye13.webp" alt="Eye 13"></noscript>
                                         </div>
                                     </div>
                                 </div>

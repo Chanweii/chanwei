@@ -455,10 +455,68 @@ function setupSliderPagination() {
     });
 }
 
+function loadFirstImages(container, count) {
+    const lazyImages = container.querySelectorAll('img.lazy-gallery-img');
+    for (let i = 0; i < Math.min(lazyImages.length, count); i++) {
+        const image = lazyImages[i];
+        if (image.dataset.src) {
+            image.src = image.dataset.src;
+            image.removeAttribute('data-src');
+            image.addEventListener('load', () => {
+                image.classList.add('loaded');
+            });
+            if (image.complete) {
+                image.classList.add('loaded');
+            }
+        }
+    }
+}
+
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('img.lazy-gallery-img');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const image = entry.target;
+                    if (image.dataset.src) {
+                        image.src = image.dataset.src;
+                        image.removeAttribute('data-src');
+                        image.addEventListener('load', () => {
+                            image.classList.add('loaded');
+                        });
+                        if (image.complete) {
+                            image.classList.add('loaded');
+                        }
+                    }
+                    observer.unobserve(image);
+                }
+            });
+        }, {
+            rootMargin: '150px 0px 150px 0px' // Start loading slightly before entering viewport
+        });
+
+        lazyImages.forEach(image => {
+            imageObserver.observe(image);
+        });
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        lazyImages.forEach(image => {
+            if (image.dataset.src) {
+                image.src = image.dataset.src;
+                image.removeAttribute('data-src');
+                image.classList.add('loaded');
+            }
+        });
+    }
+}
+
 // 網頁載入後執行
 window.addEventListener('DOMContentLoaded', () => {
     adjustEnglishSpacing();
     setupSliderPagination();
+    initLazyLoading();
 });
 
 // ==============================
@@ -598,6 +656,8 @@ document.addEventListener('mouseup', (e) => {
                 // Toggle the clicked item
                 if (!isActive) {
                     currentItem.classList.add('active');
+                    // Actively trigger loading of the first 2 images in this expanded panel immediately
+                    loadFirstImages(currentItem, 2);
                 }
             });
         });
@@ -778,7 +838,7 @@ document.addEventListener('mouseup', (e) => {
                     // Only show if the item is NOT expanded and screen is desktop
                     if (!item.classList.contains('active') && window.innerWidth > 1024) {
                         // Use data-preview if available, otherwise fallback to first image in gallery
-                        hoverPreviewImg.src = header.dataset.preview || (firstImg ? firstImg.src : '');
+                        hoverPreviewImg.src = header.dataset.preview || (firstImg ? (firstImg.dataset.src || firstImg.src) : '');
                         hoverPreviewContainer.classList.add('active');
                         // Add a random slight rotation for dynamic feel
                         const randomRotation = Math.random() * 8 - 4; // between -4 and 4 degrees
