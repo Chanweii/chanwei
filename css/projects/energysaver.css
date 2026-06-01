@@ -1,0 +1,168 @@
+/* Specific styles for Energy Saver project */
+
+.objective-list-vertical {
+    list-style: none;
+    margin: 1.5rem 0 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.objective-list-vertical li {
+    background-color: #f3f3f3;
+    border-radius: 12px;
+    padding: 2rem;
+    display: block;
+}
+
+.objective-list-vertical .num {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #b3b3b3;
+    line-height: 1.2;
+    margin-top: 4px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    /* 20px */
+
+    font-weight: 700;
+    color: var(--color-black);
+    margin-top: 2px;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+}
+
+.img-xl {
+    max-width: 95% !important;
+}
+
+.img-full {
+    max-width: 100% !important;
+}
+
+@media (max-width: 768px) {
+    .img-xl {
+        max-width: 100% !important;
+    }
+}
+
+.scrollable-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+    margin-top: 2.5rem;
+}
+
+/* Custom Scrollbar for better aesthetics */
+.scrollable-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.scrollable-container img {
+    max-width: none;
+    height: 550px;
+    /* 控制圖片的最高高度，你可以調大或調小這個數值 */
+    width: auto;
+    /* 讓寬度隨著高度等比例縮放 */
+    display: block;
+}
+
+/* ==========================================================================
+   Showcase layout (長圖 + 雙欄排版)
+   ========================================================================== */
+
+/* 0. 標題 (19px Medium) + 分隔線 */
+.showcase-section-title {
+    font-size: 1.1875rem;
+    /* 19px，比內文大一級 */
+    font-weight: 500;
+    /* Medium 字重 */
+    color: var(--color-black, #1a1a1a);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    margin: 5rem 0 1rem 0;
+    /* 上方拉大距離與前文隔開，下方留小間距距离分隔線 */
+}
+
+/* 分隔線 — 一條很細的水平線 */
+.showcase-divider {
+    border: none;
+    border-top: 1px solid var(--border-color, #e5e5e5);
+    margin: 0 0 0.5rem 0; /* 縮小與下方圖片的距離 */
+}
+
+/* 1. 雙欄文字排版 */
+.showcase-text-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.08fr;
+    /* 左右欄接近均分，但右欄微幅多出一點空間 (約2-3字寬度)，不會太過明顯 */
+    gap: 4rem;
+    margin-bottom: 2rem;
+}
+
+/* 確保 grid 子項目在小螢幕下不撐破 */
+.showcase-left-col,
+.showcase-right-col {
+    min-width: 0;
+}
+
+/* 2. 欄位標題 (17px 黑色 Semi-bold) */
+.column-title {
+    font-size: 1.0625rem;
+    /* 17px */
+    font-weight: 600;
+    /* 黑色加粗 #600 */
+    color: #1a1a1a;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.improvements-list {
+    list-style: disc;
+    /* 使用实心圓點 */
+    padding-left: 1.1rem;
+    /* 讓園點對齊正常顯示 */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.improvements-list li {
+    font-size: 1.0625rem;
+    /* 17px */
+    line-height: 1.65;
+    color: #363636;
+    padding-left: 0.25rem;
+    /* 文字與園點間的小間距 */
+}
+
+/* ==========================================================================
+   響應式斷點 (RWD) 調整
+   ========================================================================== */
+
+/* 平板直式 (≤1024px) */
+@media (max-width: 1024px) {
+    .showcase-text-grid {
+        grid-template-columns: 1fr;
+        /* 改為單欄上下堆疊 */
+        gap: 2rem;
+    }
+}
