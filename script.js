@@ -500,6 +500,26 @@ function initLazyLoading() {
         lazyImages.forEach(image => {
             imageObserver.observe(image);
         });
+
+        // Observe the archive items to eager load their images before they are opened
+        const archiveItems = document.querySelectorAll('.archive-item');
+        const itemObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Load all images in this item
+                    loadFirstImages(entry.target, 20);
+                    // Stop observing this item once triggered
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '1000px 0px 1000px 0px' // Trigger when within 1000px vertically
+        });
+        
+        archiveItems.forEach(item => {
+            itemObserver.observe(item);
+        });
+
     } else {
         // Fallback for browsers without IntersectionObserver
         lazyImages.forEach(image => {
