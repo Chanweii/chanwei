@@ -360,7 +360,7 @@
 /* Grid */
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
     gap: 3.5rem 2.5rem;
 }
 
@@ -539,6 +539,9 @@
 }
 
 @media (max-width: 768px) {
+    .desktop-br {
+        display: none;
+    }
     .header {
         padding: 1.5rem 2rem;
         flex-direction: column;
