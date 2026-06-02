@@ -494,7 +494,7 @@ function initLazyLoading() {
                 }
             });
         }, {
-            rootMargin: '150px 0px 150px 0px' // Start loading slightly before entering viewport
+            rootMargin: '300px 500px 300px 500px' // Start loading earlier, especially horizontally
         });
 
         lazyImages.forEach(image => {
@@ -656,8 +656,8 @@ document.addEventListener('mouseup', (e) => {
                 // Toggle the clicked item
                 if (!isActive) {
                     currentItem.classList.add('active');
-                    // Actively trigger loading of the first 2 images in this expanded panel immediately
-                    loadFirstImages(currentItem, 2);
+                    // Actively trigger loading of all images in this expanded panel immediately
+                    loadFirstImages(currentItem, 20);
                 }
             });
         });
