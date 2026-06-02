@@ -1,17 +1,8 @@
 --- index.html ---
-Chanwei
-• Work
-About
-Resume
-In
-Progress
-Problem
-Framing
-Design
-Research
+
 我是展蔚 👋
 我關注設計如何創造環境友善、社會包容與文化延續的系統與體驗
-More about me →
+
 面對開放式的設計議題，我喜歡透過大量發散來辨識問題的潛在成因與限制條件；我也喜歡研究人在特定情境中的意圖與行動門檻，並思考設計如何讓行動更自然地發生。
 Selected Work
 Coming soon
