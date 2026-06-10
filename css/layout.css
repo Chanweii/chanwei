@@ -29,6 +29,8 @@
 .logo a {
     display: flex;
     align-items: center;
+    justify-content: center;
+    min-width: 44px;
     height: 100%;
 }
 
@@ -56,6 +58,7 @@
     padding: 0 1.2rem;
     /* 移除上下 padding，由父容器高度與 flex 居中控制 */
     height: 100%;
+    min-height: 44px;
     display: flex;
     align-items: center;
     border-radius: 100px;
@@ -188,12 +191,13 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 250px;
-    height: 150px;
+    width: clamp(152px, 19vw, 260px);
+    aspect-ratio: 5 / 3;
+    height: auto;
     overflow: hidden;
     z-index: 20;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    border-radius: clamp(12px, 1.4vw, 20px);
     cursor: grab;
 }
 
@@ -229,7 +233,9 @@
 }
 
 .about-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     margin-top: 1.5rem;
     font-size: 0.9375rem;
     font-weight: 500;
@@ -559,7 +565,11 @@
     }
 
     .hero {
-        padding: 4rem 2rem;
+        padding: 4rem 0.5rem;
+    }
+
+    .hero-title {
+        width: 100%;
     }
 
     .about,
@@ -898,6 +908,7 @@
 .archive-item-content {
     max-height: 0;
     overflow: hidden;
+    visibility: hidden;
     transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
     opacity: 0;
 }
@@ -906,6 +917,7 @@
     max-height: 800px;
     /* arbitrary large value, enough for content */
     opacity: 1;
+    visibility: visible;
 }
 
 .archive-inner-content {

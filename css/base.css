@@ -48,3 +48,57 @@ p {
     overflow-wrap: break-word;
 }
 
+/* =========================================
+   ACCESSIBILITY & KEYBOARD FOCUS STYLES
+   ========================================= */
+
+/* Global focus indicator for keyboard users */
+*:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 4px;
+}
+
+/* Disable focus ring for mouse clicks where focus-visible handles keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Skip to main content link - hidden off-screen by default, slides down on focus */
+.skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-black);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 8px 8px;
+    z-index: 100000;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.skip-to-content:focus-visible {
+    top: 0;
+    outline: 2px solid var(--white);
+    outline-offset: -4px;
+}
+
+/* Conditional desktop cursor: only hide default cursor if script initialized custom cursor */
+@media (min-width: 1025px) {
+    body.has-custom-cursor {
+        cursor: none;
+    }
+    body.has-custom-cursor a,
+    body.has-custom-cursor button,
+    body.has-custom-cursor [role="button"],
+    body.has-custom-cursor input,
+    body.has-custom-cursor textarea,
+    body.has-custom-cursor select {
+        cursor: none;
+    }
+}
+
+

@@ -1,18 +1,76 @@
 @font-face {
-    font-family: 'Pretendard Variable';
-    font-weight: 45 920;
+    font-family: "Figtree Local";
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
-    /* 限制 Pretendard 只作用於英文、數字及基礎符號，避開中文字與全形標點符號 */
+    src: url("../fonts/figtree-latin-400-normal.woff2") format("woff2");
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Figtree Local";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/figtree-latin-500-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Figtree Local";
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/figtree-latin-600-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Figtree Local";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/figtree-latin-700-normal.woff2") format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Noto Sans TC Local";
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/NotoSansTC-400.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Noto Sans TC Local";
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/NotoSansTC-500.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Noto Sans TC Local";
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/NotoSansTC-600.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Noto Sans TC Local";
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url("../fonts/NotoSansTC-700.woff2") format("woff2");
 }
 
 /* Design tokens */
 :root {
     --bg-color: #f5f5f5;
     --text-primary: #242424;
-    --text-secondary: #8c8c8c;
+    --text-secondary: #686868;
     --text-body: #363636;
     --white: #ffffff;
     --card-bg: #ffffff;
@@ -21,19 +79,23 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Typography */
-    --font-latin: "Pretendard Variable";
-    --font-cjk: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei";
+    --font-latin: "Figtree Local";
+    --font-cjk-regular: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC Local";
+    --font-cjk-emphasis: "Noto Sans TC Local", "PingFang TC", "Microsoft JhengHei";
+    --font-cjk: var(--font-cjk-regular);
     
     /*
       Default font stack:
-      - Pretendard handles Latin letters and numbers
-      - Noto Sans TC handles Chinese and full-width punctuation
+      - Figtree handles Latin letters and numbers through unicode-range
+      - PingFang TC / Microsoft JhengHei handle regular 400 Chinese when available
+      - Local Noto Sans TC handles emphasized CJK weights for steadier 500/600/700 rendering
     */
-    --font-main: var(--font-latin), var(--font-cjk), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-main: var(--font-latin), var(--font-cjk-regular), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-emphasis: var(--font-latin), var(--font-cjk-emphasis), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
     --color-primary: #363636;
     --color-black: #242424;
-    --color-gray: #8c8c8c;
+    --color-gray: #595959;
 
     /* Grid / Layout */
     --grid-margin: 2.5rem; /* 40px */
@@ -68,9 +130,43 @@ body {
 .cjk,
 .case-content,
 .case-section {
-    font-family: var(--font-cjk);
+    font-family: var(--font-main);
     font-variant-east-asian: full-width;
     font-feature-settings: "palt" off;
+}
+
+/* Emphasized CJK weights use local Noto Sans TC before system fonts for steadier 500/600/700 rendering. */
+:where(h1, h2, h3, h4, h5, h6, strong, b,
+    .nav-pill a,
+    .about-btn,
+    .work-tag,
+    .work-title,
+    .archive-item-header,
+    .archive-title,
+    .archive-year,
+    .archive-col.type,
+    .tag-outline,
+    .meta-label,
+    .meta-value,
+    .card-title,
+    .section-heading,
+    .section-kicker,
+    .sub-heading,
+    .section-label-text,
+    .role-entry-hint,
+    .role-card-title,
+    .column-title,
+    .showcase-section-title,
+    .project-nav-item,
+    .small-text,
+    .keyword-circle,
+    .feedback-card h4,
+    .about-name-zh,
+    .about-label,
+    .about-skill-pill,
+    .tooltip-title,
+    .tooltip-subtitle) {
+    font-family: var(--font-emphasis);
 }
 
 /* Optional: apply this class to English labels, tags, buttons, and metadata */
@@ -79,5 +175,5 @@ body {
 .meta-label,
 .tag,
 button {
-    font-family: var(--font-latin);
+    font-family: var(--font-emphasis);
 }
