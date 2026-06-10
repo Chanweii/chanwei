@@ -369,8 +369,15 @@ function setupSliderPagination() {
 
         if (!slider || items.length === 0) return;
 
+        // Make slider keyboard-focusable and accessible
+        slider.setAttribute('tabindex', '0');
+        slider.setAttribute('aria-label', '專案圖片藝廊，使用鍵盤左右方向鍵捲動');
+
         // --- DOTS (tablet/mobile) ---
         const dots = pagination ? pagination.querySelectorAll('.dot') : [];
+        dots.forEach((dot, index) => {
+            dot.setAttribute('aria-label', `投影片第 ${index + 1} 頁`);
+        });
 
         // --- SCROLLBAR (desktop) ---
         function updateScrollbar() {
@@ -537,6 +544,17 @@ window.addEventListener('DOMContentLoaded', () => {
     adjustEnglishSpacing();
     setupSliderPagination();
     initLazyLoading();
+
+    // Make scrollable containers keyboard-accessible
+    const scrollableContainers = document.querySelectorAll('.scrollable-container');
+    scrollableContainers.forEach(container => {
+        if (!container.hasAttribute('tabindex')) {
+            container.setAttribute('tabindex', '0');
+        }
+        if (!container.hasAttribute('aria-label')) {
+            container.setAttribute('aria-label', '水平捲動以檢視完整內容');
+        }
+    });
 });
 
 // ==============================
@@ -567,24 +585,44 @@ document.addEventListener('mouseup', (e) => {
         document.body.appendChild(cursor);
     }
 
+    if (isDesktop()) {
+        document.body.classList.add('has-custom-cursor');
+    }
+
     // Update cursor position
     document.addEventListener('mousemove', (e) => {
         if (!isDesktop()) return;
+        if (!document.body.classList.contains('has-custom-cursor')) {
+            document.body.classList.add('has-custom-cursor');
+        }
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
     });
 
-    // Elements that should trigger hover effect
-    const interactiveSelectors = 'a, button, .project-nav-item, .slide-item, .dot, .work-card-wrapper';
-    const interactiveElements = document.querySelectorAll(interactiveSelectors);
+    // Fallback: hide custom cursor and show system cursor on Tab navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            document.body.classList.remove('has-custom-cursor');
+        }
+    });
 
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            if (isDesktop()) cursor.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
+    // Elements that should trigger hover effect
+    const interactiveSelectors = 'a, button, [role="button"], .project-nav-item, .slide-item, .dot, .work-card-wrapper';
+    const syncCursorHover = (target) => {
+        const interactiveElement = target && target.closest ? target.closest(interactiveSelectors) : null;
+        cursor.classList.toggle('hover', Boolean(interactiveElement));
+    };
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDesktop() || !document.body.classList.contains('has-custom-cursor')) {
             cursor.classList.remove('hover');
-        });
+            return;
+        }
+        syncCursorHover(e.target);
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover');
     });
 })();
 
@@ -663,21 +701,48 @@ document.addEventListener('mouseup', (e) => {
     // Archive List Accordion Toggle
     const archiveHeaders = document.querySelectorAll('.archive-item-header');
     if (archiveHeaders.length > 0) {
+        const setArchivePanelState = (item, isOpen) => {
+            const content = item.querySelector('.archive-item-content');
+            if (!content) return;
+
+            content.toggleAttribute('inert', !isOpen);
+            content.setAttribute('aria-hidden', String(!isOpen));
+        };
+
         archiveHeaders.forEach(header => {
-            header.addEventListener('click', () => {
+            header.setAttribute('aria-expanded', 'false');
+            setArchivePanelState(header.parentElement, false);
+            
+            const toggleAccordion = () => {
                 const currentItem = header.parentElement;
                 const isActive = currentItem.classList.contains('active');
                 
-                // Close all other items (optional: if you only want one open at a time)
+                // Close all other items and set expanded to false
                 document.querySelectorAll('.archive-item').forEach(item => {
                     item.classList.remove('active');
+                    const h = item.querySelector('.archive-item-header');
+                    if (h) h.setAttribute('aria-expanded', 'false');
+                    setArchivePanelState(item, false);
                 });
                 
                 // Toggle the clicked item
                 if (!isActive) {
                     currentItem.classList.add('active');
+                    header.setAttribute('aria-expanded', 'true');
+                    setArchivePanelState(currentItem, true);
                     // Actively trigger loading of all images in this expanded panel immediately
                     loadFirstImages(currentItem, 20);
+                } else {
+                    header.setAttribute('aria-expanded', 'false');
+                    setArchivePanelState(currentItem, false);
+                }
+            };
+
+            header.addEventListener('click', toggleAccordion);
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent scrolling on Space
+                    toggleAccordion();
                 }
             });
         });
@@ -697,9 +762,13 @@ document.addEventListener('mouseup', (e) => {
             lightbox = document.createElement('div');
             lightbox.id = 'image-lightbox';
             lightbox.className = 'lightbox';
+            lightbox.setAttribute('role', 'dialog');
+            lightbox.setAttribute('aria-modal', 'true');
+            lightbox.setAttribute('aria-label', '圖片檢視器');
 
-            lightboxClose = document.createElement('span');
+            lightboxClose = document.createElement('button');
             lightboxClose.className = 'lightbox-close';
+            lightboxClose.setAttribute('aria-label', '關閉畫廊');
             lightboxClose.innerHTML = '&times;';
 
             lightboxPrev = document.createElement('button');
@@ -714,6 +783,7 @@ document.addEventListener('mouseup', (e) => {
             lightboxImg = document.createElement('img');
             lightboxImg.id = 'lightbox-img';
             lightboxImg.className = 'lightbox-content';
+            lightboxImg.setAttribute('alt', '放大的專案圖片');
 
             lightboxNext = document.createElement('button');
             lightboxNext.className = 'lightbox-nav next';
@@ -737,6 +807,7 @@ document.addEventListener('mouseup', (e) => {
 
         let currentGalleryImages = [];
         let currentImageIndex = 0;
+        let lastActiveElement = null; // Store trigger element to restore focus on close
 
         const updateLightboxContent = () => {
             if (currentGalleryImages.length > 0 && currentImageIndex >= 0 && currentImageIndex < currentGalleryImages.length) {
@@ -762,10 +833,18 @@ document.addEventListener('mouseup', (e) => {
             }
         };
 
-        // Open lightbox
+        // Initialize slide images for keyboard accessibility (role, tabindex, labels, enter/space trigger)
         slideImages.forEach(img => {
-            img.addEventListener('click', (e) => {
+            img.setAttribute('tabindex', '0');
+            img.setAttribute('role', 'button');
+            const parentItem = img.closest('.slide-item');
+            const caption = parentItem ? parentItem.querySelector('.slide-caption') : null;
+            const captionText = caption ? caption.textContent.trim() : (img.alt || '作品圖片');
+            img.setAttribute('aria-label', `放大圖片：${captionText}`);
+
+            const openHandler = (e) => {
                 e.stopPropagation(); // Prevent trigger parent slide-item scroll click
+                lastActiveElement = img; // Remember which image triggered the lightbox
                 
                 // Identify the sibling images inside the same slider track
                 const parentTrack = img.closest('.slider-track') || img.closest('.horizontal-slider') || img.parentElement;
@@ -774,6 +853,19 @@ document.addEventListener('mouseup', (e) => {
                 
                 updateLightboxContent();
                 lightbox.classList.add('show');
+
+                // Shift focus to the close button inside the modal for keyboard accessibility
+                setTimeout(() => {
+                    if (lightboxClose) lightboxClose.focus();
+                }, 100);
+            };
+
+            img.addEventListener('click', openHandler);
+            img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent scrolling on Space
+                    openHandler(e);
+                }
             });
         });
 
@@ -782,6 +874,10 @@ document.addEventListener('mouseup', (e) => {
             lightbox.classList.remove('show');
             setTimeout(() => {
                 lightboxImg.src = '';
+                // Restore focus to the triggering image element
+                if (lastActiveElement) {
+                    lastActiveElement.focus();
+                }
             }, 300); // Clear src after transition ends
         };
 
@@ -804,6 +900,7 @@ document.addEventListener('mouseup', (e) => {
                 if (currentImageIndex > 0) {
                     currentImageIndex--;
                     updateLightboxContent();
+                    lightboxPrev.focus();
                 }
             });
         }
@@ -814,6 +911,7 @@ document.addEventListener('mouseup', (e) => {
                 if (currentImageIndex < currentGalleryImages.length - 1) {
                     currentImageIndex++;
                     updateLightboxContent();
+                    lightboxNext.focus();
                 }
             });
         }
@@ -833,6 +931,41 @@ document.addEventListener('mouseup', (e) => {
                 if (currentImageIndex < currentGalleryImages.length - 1) {
                     currentImageIndex++;
                     updateLightboxContent();
+                }
+            }
+        });
+
+        // Focus Trap: restrict tab navigation within the open lightbox modal
+        lightbox.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('show')) return;
+            if (e.key !== 'Tab') return;
+
+            // Collect currently visible and focusable modal controls
+            const focusableElements = [];
+            if (lightboxClose && window.getComputedStyle(lightboxClose).display !== 'none') {
+                focusableElements.push(lightboxClose);
+            }
+            if (lightboxPrev && !lightboxPrev.classList.contains('hidden') && window.getComputedStyle(lightboxPrev).display !== 'none') {
+                focusableElements.push(lightboxPrev);
+            }
+            if (lightboxNext && !lightboxNext.classList.contains('hidden') && window.getComputedStyle(lightboxNext).display !== 'none') {
+                focusableElements.push(lightboxNext);
+            }
+
+            if (focusableElements.length === 0) return;
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab: wrap around from first to last
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            } else { // Tab: wrap around from last to first
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
                 }
             }
         });

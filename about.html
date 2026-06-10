@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - ChanWei</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/tokens.css?v=perf-rwd4">
+    <link rel="stylesheet" href="css/base.css?v=perf-rwd4">
+    <link rel="stylesheet" href="css/typography.css?v=perf-rwd4">
+    <link rel="stylesheet" href="css/layout.css?v=perf-rwd4">
     <style>
         /* 針對 About 頁面的客製化樣式，後續可移至 css/about.css */
         .about-page {
@@ -62,7 +62,7 @@
             font-weight: 500;
             line-height: 1.2;
             color: var(--color-black);
-            font-family: var(--font-cjk);
+            font-family: var(--font-emphasis);
         }
 
         .about-pinyin {
@@ -401,9 +401,12 @@
             margin: 0;
         }
 
+        .tooltip-close {
+            display: none;
+        }
+
         /* 顯示懸浮說明視窗 */
         .design-work-item:hover .design-work-tooltip,
-        .design-work-item:focus-within .design-work-tooltip,
         .design-work-item.is-active .design-work-tooltip {
             opacity: 1;
             visibility: visible;
@@ -423,7 +426,6 @@
             }
 
             .design-work-item:last-child:hover .design-work-tooltip,
-            .design-work-item:last-child:focus-within .design-work-tooltip,
             .design-work-item:last-child.is-active .design-work-tooltip {
                 transform: translateY(0);
             }
@@ -512,23 +514,136 @@
             .design-work-item.is-active .design-work-tooltip {
                 transform: translateX(-50%) translateY(0);
             }
+
+            .tooltip-close {
+                display: flex;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: rgba(0,0,0,0.08);
+                border: none;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                font-size: 1.2rem;
+                font-weight: 300;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
+                color: var(--text-primary);
+                z-index: 10;
+            }
+        }
+
+        /* 平板版：讓作品區維持輔助層級，避免 2 欄大圖搶走 About 主敘事 */
+        @media (min-width: 641px) and (max-width: 1024px) {
+            :root {
+                --works-gap: 16px;
+                --works-margin-top: 2rem;
+            }
+
+            .design-works-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: var(--works-gap);
+                max-width: 640px;
+            }
+
+            .design-work-item {
+                flex: none;
+                width: 100%;
+                min-width: 0;
+            }
+
+            .design-work-thumb {
+                border-radius: 12px;
+            }
+
+            .design-work-item:hover .design-work-thumb,
+            .design-work-item:focus-within .design-work-thumb {
+                transform: translateY(-3px);
+            }
+
+            .design-work-tooltip {
+                width: min(420px, calc(100vw - 48px));
+                max-width: 420px;
+                max-height: 72vh;
+                overflow-y: auto;
+                padding: 1.25rem;
+                gap: 1rem;
+                border-radius: 18px;
+            }
+
+            .tooltip-media {
+                flex: 0 0 132px;
+                aspect-ratio: 4 / 5;
+            }
+
+            .tooltip-title {
+                font-size: 1.125rem;
+            }
+
+            .tooltip-body {
+                font-size: 0.8125rem;
+                line-height: 1.75;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            body.has-custom-cursor {
+                cursor: none;
+            }
+
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 20px;
+                height: 20px;
+                background: #999999;
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%) scale(1);
+                transition: transform 0.09s ease-out, opacity 0.09s ease-out, background 0.09s ease-out;
+                z-index: 9999;
+                mix-blend-mode: difference;
+            }
+
+            .custom-cursor.hover {
+                transform: translate(-50%, -50%) scale(2.2);
+                opacity: 0.6;
+                background: #999999;
+            }
+
+            .custom-cursor.active {
+                transform: translate(-50%, -50%) scale(0.85);
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .custom-cursor {
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <a href="#main-content" class="skip-to-content">跳過導覽，直達主要內容</a>
     <header class="header">
-        <div class="logo"><a href="https://chanweii.github.io/chanwei/"><img src="picture/index/logo.png" alt="logo"></a></div>
+        <div class="logo"><a href="https://chanweii.github.io/chanwei/"><img src="picture/index/logo.webp" alt="連展蔚作品集首頁"></a></div>
         <nav class="nav-pill">
             <a href="https://chanweii.github.io/chanwei/#work">Work</a>
-            <a href="about.html" class="active">• About</a>
+            <a href="about.html" class="active"><span aria-hidden="true">• </span>About</a>
             <a href="https://drive.google.com/file/d/1KGHvCbsBQpQbQfsNoHwlUCO3hRFraOjI/view?usp=drive_link"
-                target="_blank" rel="noopener noreferrer">Resume</a>
+                target="_blank" rel="noopener noreferrer" aria-label="Resume，另開新分頁">Resume</a>
         </nav>
         <div class="header-right"></div>
     </header>
 
-    <main class="about-page">
+    <main class="about-page" id="main-content">
         <div class="about-card">
             <div class="about-top-section">
                 <div class="about-name-block">
@@ -547,7 +662,7 @@
                 </div>
 
                 <div class="about-photo-collage">
-                    <img src="picture/about/me.jpg" alt="ChanWei" class="about-photo-main">
+                    <img src="picture/about/me.webp" alt="連展蔚" class="about-photo-main" fetchpriority="high" decoding="async">
                 </div>
 
                 <div class="about-skills mobile-only">
@@ -597,14 +712,15 @@
                         <!-- 設計作品按鈕區 (圖片來源為 about 資料夾) -->
                         <div class="design-works-grid">
                             <!-- 1. Paimio Sanatorium -->
-                            <div class="design-work-item" tabindex="0">
+                            <div class="design-work-item" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="tooltip-paimio" aria-label="查看 Paimio Sanatorium 設計說明">
                                 <div class="design-work-thumb">
-                                    <img src="picture/about/paimio-sanatorium.png" alt="Paimio Sanatorium">
+                                    <img src="picture/about/paimio-sanatorium.webp" alt="Paimio Sanatorium" loading="lazy" decoding="async">
                                 </div>
-                                <div class="design-work-tooltip">
+                                <div class="design-work-tooltip" id="tooltip-paimio">
+                                    <button class="tooltip-close" aria-label="關閉說明" type="button">&times;</button>
                                     <div class="tooltip-media">
-                                        <img src="picture/about/Paimio Sanatorium_Popup.jpg"
-                                            alt="Paimio Sanatorium Architecture">
+                                        <img src="picture/about/Paimio Sanatorium_Popup.webp"
+                                            alt="Paimio Sanatorium Architecture" loading="lazy" decoding="async">
                                     </div>
                                     <div class="tooltip-content">
                                         <h3 class="tooltip-title">Paimio Sanatorium</h3>
@@ -618,13 +734,14 @@
                                 </div>
                             </div>
                             <!-- 2. Tripp Trapp -->
-                            <div class="design-work-item" tabindex="0">
+                            <div class="design-work-item" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="tooltip-tripp" aria-label="查看 Tripp Trapp 成長椅設計說明">
                                 <div class="design-work-thumb">
-                                    <img src="picture/about/tripp-trapp-chair.png" alt="Tripp Trapp">
+                                    <img src="picture/about/tripp-trapp-chair.webp" alt="Tripp Trapp" loading="lazy" decoding="async">
                                 </div>
-                                <div class="design-work-tooltip">
+                                <div class="design-work-tooltip" id="tooltip-tripp">
+                                    <button class="tooltip-close" aria-label="關閉說明" type="button">&times;</button>
                                     <div class="tooltip-media">
-                                        <img src="picture/about/tripp-trapp_Popup.webp" alt="Tripp Trapp® Chair">
+                                        <img src="picture/about/tripp-trapp_Popup.webp" alt="Tripp Trapp® Chair" loading="lazy" decoding="async">
                                     </div>
                                     <div class="tooltip-content">
                                         <h3 class="tooltip-title">Tripp Trapp®</h3>
@@ -638,14 +755,15 @@
                                 </div>
                             </div>
                             <!-- 3. Design Value Framework -->
-                            <div class="design-work-item" tabindex="0">
+                            <div class="design-work-item" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="tooltip-framework" aria-label="查看 Design Value Framework 設計說明">
                                 <div class="design-work-thumb">
-                                    <img src="picture/about/design-value-framework.png" alt="Design Value Framework">
+                                    <img src="picture/about/design-value-framework.webp" alt="Design Value Framework" loading="lazy" decoding="async">
                                 </div>
-                                <div class="design-work-tooltip">
+                                <div class="design-work-tooltip" id="tooltip-framework">
+                                    <button class="tooltip-close" aria-label="關閉說明" type="button">&times;</button>
                                     <div class="tooltip-media">
                                         <img src="picture/about/Design Value Framework _Popup.webp"
-                                            alt="Design Value Framework Diagram">
+                                            alt="Design Value Framework Diagram" loading="lazy" decoding="async">
                                     </div>
                                     <div class="tooltip-content">
                                         <h3 class="tooltip-title">Design Value Framework</h3>
@@ -658,20 +776,21 @@
                                 </div>
                             </div>
                             <!-- 4. Savoy Vase -->
-                            <div class="design-work-item" tabindex="0">
+                            <div class="design-work-item" role="button" tabindex="0" aria-haspopup="dialog" aria-expanded="false" aria-controls="tooltip-savoy" aria-label="查看 Savoy Vase 設計說明">
                                 <div class="design-work-thumb">
-                                    <img src="picture/about/savoy-vase.png" alt="Savoy Vase">
+                                    <img src="picture/about/savoy-vase.webp" alt="Savoy Vase" loading="lazy" decoding="async">
                                 </div>
-                                <div class="design-work-tooltip">
+                                <div class="design-work-tooltip" id="tooltip-savoy">
+                                    <button class="tooltip-close" aria-label="關閉說明" type="button">&times;</button>
                                     <div class="tooltip-media">
-                                        <img src="picture/about/savoy_vase_Popup.jpg" alt="Savoy Vase Organic Shape">
+                                        <img src="picture/about/savoy_vase_Popup.webp" alt="Savoy Vase Organic Shape" loading="lazy" decoding="async">
                                     </div>
                                     <div class="tooltip-content">
                                         <h3 class="tooltip-title">Savoy Vase</h3>
                                         <div class="tooltip-subtitle">Alvar Aalto, 1936</div>
                                         <div class="tooltip-body">
                                             Savoy Vase
-                                            以不規則的曲線與不對稱瓶口，打破傳統花器對稱、規整與固定輪廓的想像。它沒有將形式收束於單一功能，而是在花器的用途之外，保留了更開放的使用彈性。可以作為花器，也能成為空間中的雕塑物件，或被使用為盛裝果物與日常物件。
+                                            以不規則的曲線與不對稱瓶口，打破傳統花器對稱、規整與固定輪廓的想像。它沒有將形式收束於單一功能，而是在花器用途之外，保留了更開放的使用彈性。可以作為花器，也能成為空間中的雕塑物件，或被使用為盛裝果物與日常物件。
                                             <br>Savoy Vase 的設計不只在於造型辨識度，也在於讓功能與情境保持可被重新詮釋的彈性。
                                         </div>
                                     </div>
@@ -698,36 +817,57 @@
                 document.body.appendChild(cursor);
             }
 
+            if (isDesktop()) {
+                document.body.classList.add('has-custom-cursor');
+            }
+
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
             let cursorX = mouseX;
             let cursorY = mouseY;
-            let isHovering = false;
+            const interactiveSelectors = 'a, button, [role="button"], .slider-nav-btn, .floating-pill, .hero-image-wrapper, .design-work-item';
+            const syncCursorHover = (target) => {
+                const interactiveElement = target && target.closest ? target.closest(interactiveSelectors) : null;
+                cursor.classList.toggle('hover', Boolean(interactiveElement));
+            };
 
             document.addEventListener('mousemove', (e) => {
                 if (!isDesktop()) return;
+                if (!document.body.classList.contains('has-custom-cursor')) {
+                    document.body.classList.add('has-custom-cursor');
+                }
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                syncCursorHover(e.target);
             });
 
-            const linkElements = document.querySelectorAll('a, button, .slider-nav-btn, .floating-pill, .hero-image-wrapper, .design-work-item');
-            linkElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    if (!isDesktop()) return;
-                    isHovering = true;
-                    cursor.classList.add('hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    if (!isDesktop()) return;
-                    isHovering = false;
-                    cursor.classList.remove('hover');
-                });
+            // Mousedown/mouseup states for custom cursor
+            document.addEventListener('mousedown', (e) => {
+                if (cursor && isDesktop()) {
+                    cursor.classList.add('active');
+                }
+            });
+            document.addEventListener('mouseup', (e) => {
+                if (cursor && isDesktop()) {
+                    cursor.classList.remove('active');
+                }
+            });
+
+            // Fallback: hide custom cursor and show system cursor on Tab navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    document.body.classList.remove('has-custom-cursor');
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
             });
 
             function loop() {
-                if (isDesktop()) {
+                if (isDesktop() && document.body.classList.contains('has-custom-cursor')) {
                     cursor.style.display = 'block';
-                    const easing = 0.15;
+                    const easing = 0.35;
                     cursorX += (mouseX - cursorX) * easing;
                     cursorY += (mouseY - cursorY) * easing;
                     cursor.style.left = cursorX + 'px';
@@ -740,23 +880,99 @@
             loop();
         })();
 
-        // Mobile tap interaction for design work buttons
+        // Interactive tooltip behavior (mouse hover, mobile tap, and keyboard navigation)
         (function () {
             const items = document.querySelectorAll('.design-work-item');
 
+            // Set up initial state attributes
             items.forEach(item => {
+                item.setAttribute('aria-expanded', 'false');
+                
+                // Add tooltip close button handlers
+                const closeBtn = item.querySelector('.tooltip-close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        closeTooltip(item);
+                    });
+                }
+            });
+
+            function openTooltip(item) {
+                // Close others first
+                items.forEach(i => {
+                    if (i !== item) closeTooltip(i);
+                });
+                item.classList.add('is-active');
+                item.setAttribute('aria-expanded', 'true');
+            }
+
+            function closeTooltip(item) {
+                if (item.classList.contains('is-active')) {
+                    item.classList.remove('is-active');
+                    item.setAttribute('aria-expanded', 'false');
+                    // Refocus the trigger element if focus was inside it
+                    if (item.contains(document.activeElement)) {
+                        item.focus();
+                    }
+                }
+            }
+
+            items.forEach(item => {
+                // Mouse and touch toggles
                 item.addEventListener('click', function (e) {
                     const isActive = this.classList.contains('is-active');
-                    items.forEach(i => i.classList.remove('is-active'));
-                    if (!isActive) {
-                        this.classList.add('is-active');
-                        e.stopPropagation();
+                    if (e.target.closest('.tooltip-close')) return; // handled by closeBtn click
+                    
+                    if (isActive) {
+                        closeTooltip(this);
+                    } else {
+                        openTooltip(this);
+                    }
+                    e.stopPropagation();
+                });
+
+                // Keyboard focus trigger
+                item.addEventListener('focus', function () {
+                    openTooltip(this);
+                });
+
+                // Keyboard blur listener
+                item.addEventListener('blur', function () {
+                    // Only close if focus is moving outside the item entirely
+                    setTimeout(() => {
+                        if (!this.contains(document.activeElement)) {
+                            closeTooltip(this);
+                        }
+                    }, 50);
+                });
+
+                // Keyboard support (Enter/Space on focused item)
+                item.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault(); // prevent scroll on Space
+                        const isActive = this.classList.contains('is-active');
+                        if (isActive) {
+                            closeTooltip(this);
+                        } else {
+                            openTooltip(this);
+                        }
+                    } else if (e.key === 'Escape') {
+                        closeTooltip(this);
                     }
                 });
             });
 
+            // Close tooltips if clicked outside
             document.addEventListener('click', function () {
-                items.forEach(item => item.classList.remove('is-active'));
+                items.forEach(item => closeTooltip(item));
+            });
+
+            // Escape key listener on window to close any open tooltip
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    items.forEach(item => closeTooltip(item));
+                }
             });
         })();
     </script>
