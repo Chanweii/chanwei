@@ -753,7 +753,7 @@
 
 .archive-year {
     font-size: 15px;
-    color: var(--text-secondary);
+    color: #565656;
     /* 或您偏好的較淺顏色 */
     font-weight: 400;
     line-height: 1;
@@ -769,7 +769,7 @@
 .archive-col.type {
     grid-column: 7 / span 2;
     /* 第二欄再往右與about的a對齊 (7-8) */
-    color: #606060;
+    color: #565656;
     font-weight: 400;
     text-align: left;
     /* Align left based on grid design */
@@ -778,7 +778,7 @@
 .archive-col.tasks {
     grid-column: 9 / span 3;
     /* 第三欄對齊導航pill 尾巴 (9-11) */
-    color: #606060;
+    color: #565656;
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;

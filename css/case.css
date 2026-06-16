@@ -351,11 +351,17 @@
 }
 
 .text-highlight {
-    color: #70542b;
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .case-section p {
     margin-bottom: 1rem;
+}
+
+.case-content .body-text strong,
+.case-content .body-text b {
+    font-weight: 600;
 }
 
 /* Responsive Image for Content Sections */
