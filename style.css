@@ -1,8 +1,8 @@
 /* Temporary compatibility entrypoint. Prefer loading the layer files directly in new pages. */
-@import url("css/tokens.css?v=perf-rwd4");
-@import url("css/base.css?v=perf-rwd4");
-@import url("css/typography.css?v=perf-rwd4");
-@import url("css/layout.css?v=perf-rwd4");
-@import url("css/components.css?v=perf-rwd4");
-@import url("css/case.css?v=perf-rwd4");
-@import url("css/projects/workshop.css?v=perf-rwd4");
+@import url("css/tokens.css?v=lightbox-ui1");
+@import url("css/base.css?v=lightbox-ui1");
+@import url("css/typography.css?v=lightbox-ui1");
+@import url("css/layout.css?v=lightbox-ui1");
+@import url("css/components.css?v=lightbox-ui1");
+@import url("css/case.css?v=lightbox-ui1");
+@import url("css/projects/workshop.css?v=lightbox-ui1");
