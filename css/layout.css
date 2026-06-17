@@ -202,6 +202,7 @@
 }
 
 .hero-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -236,19 +237,30 @@
 .about-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     min-height: 44px;
+    padding: 0 1.1rem;
     margin-top: 1.5rem;
-    font-size: 0.9375rem;
+    margin-left: -6px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--text-primary);
     text-decoration: none;
-    border-bottom: 1px solid var(--text-primary);
-    padding-bottom: 2px;
-    transition: opacity 0.3s ease;
+    border: 1px solid #b8b8b8;
+    border-radius: 999px;
+    background: transparent;
+    letter-spacing: 0;
+    white-space: nowrap;
+    transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.about-btn span {
+    margin-left: 0.6rem;
 }
 
 .about-btn:hover {
-    opacity: 0.6;
+    border-color: #222222;
+    color: #222222;
 }
 
 .about-right {
