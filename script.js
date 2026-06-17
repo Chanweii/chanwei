@@ -20,8 +20,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const titleImg = document.querySelector('.hero-title img');
         const container = document.querySelector('.hero-content');
         const header = document.querySelector('.header');
+        let physicsStarted = false;
 
-        setTimeout(() => {
+        function isHeroReadyForPhysics() {
+            const heroRect = hero.getBoundingClientRect();
+            return heroRect.bottom > 0 && heroRect.top < window.innerHeight;
+        }
+
+        function waitForImageReady(img) {
+            if (!img) return Promise.resolve();
+            if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+            if (img.decode) {
+                return img.decode().catch(() => new Promise(resolve => {
+                    img.addEventListener('load', resolve, { once: true });
+                    img.addEventListener('error', resolve, { once: true });
+                }));
+            }
+            return new Promise(resolve => {
+                img.addEventListener('load', resolve, { once: true });
+                img.addEventListener('error', resolve, { once: true });
+            });
+        }
+
+        function nextFrame() {
+            return new Promise(resolve => requestAnimationFrame(resolve));
+        }
+
+        async function startPhysicsWhenReady() {
+            if (physicsStarted || !isHeroReadyForPhysics()) return;
+            physicsStarted = true;
+            window.removeEventListener('scroll', startPhysicsWhenReady);
+
+            await waitForImageReady(titleImg);
+            await nextFrame();
+            await nextFrame();
+            initializePhysics();
+        }
+
+        function initializePhysics() {
             if (!titleImg || !container) return;
 
             const containerRect = container.getBoundingClientRect();
@@ -31,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 計算 Y 座標相對於 .hero-content 的位置
             physicsBounds.width = containerRect.width;
             physicsBounds.height = containerRect.height;
-            physicsBounds.groundY = titleRect.top - containerRect.top - 30; // 減去 30x 創造留白
+            physicsBounds.groundY = titleRect.top - containerRect.top - 30; // 減去 30px 創造留白
             physicsBounds.ceilingY = headerRect.bottom - containerRect.top;
 
             const imgRatio = 3584 / 698;
@@ -49,8 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 建立隱形物理邊界 (加厚至 2000px 防止快速拋擲穿透)
             const thickness = 2000;
-            const ground = Bodies.rectangle(physicsBounds.width / 2, physicsBounds.groundY + thickness / 2, physicsBounds.width * 2, thickness, {
-                isStatic: true
+            const chanweiSurface = Bodies.rectangle(physicsBounds.width / 2, physicsBounds.groundY + thickness / 2, physicsBounds.width * 2, thickness, {
+                isStatic: true,
+                restitution: 0.62,
+                friction: 0.02
             });
             const ceiling = Bodies.rectangle(physicsBounds.width / 2, physicsBounds.ceilingY - thickness / 2, physicsBounds.width * 2, thickness, {
                 isStatic: true
@@ -61,21 +99,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const leftCorner = Bodies.rectangle(physicsBounds.wallLeftX - 10, physicsBounds.groundY + 10, 100, 100, { isStatic: true, angle: Math.PI / 4 });
             const rightCorner = Bodies.rectangle(physicsBounds.wallRightX + 10, physicsBounds.groundY + 10, 100, 100, { isStatic: true, angle: Math.PI / 4 });
 
-            Composite.add(engine.world, [ground, ceiling, leftWall, rightWall, leftCorner, rightCorner]);
+            Composite.add(engine.world, [chanweiSurface, ceiling, leftWall, rightWall, leftCorner, rightCorner]);
 
             // 響應視窗縮放 (RWD) 以動態更新邊界，加入 debounce 避免頻繁觸發擠出標籤
             let resizeTimer;
             window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    const newContainerRect = container.getBoundingClientRect();
-                    const newTitleRect = titleImg.getBoundingClientRect();
-                    const newHeaderRect = header ? header.getBoundingClientRect() : { bottom: 0 };
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        const newContainerRect = container.getBoundingClientRect();
+                        const newTitleRect = titleImg.getBoundingClientRect();
+                        const newHeaderRect = header ? header.getBoundingClientRect() : { bottom: 0 };
 
-                    physicsBounds.width = newContainerRect.width;
-                    physicsBounds.height = newContainerRect.height;
-                    physicsBounds.groundY = newTitleRect.top - newContainerRect.top - 15; // 減去 15px 創造留白
-                    physicsBounds.ceilingY = newHeaderRect.bottom - newContainerRect.top;
+                        physicsBounds.width = newContainerRect.width;
+                        physicsBounds.height = newContainerRect.height;
+                        physicsBounds.groundY = newTitleRect.top - newContainerRect.top - 30;
+                        physicsBounds.ceilingY = newHeaderRect.bottom - newContainerRect.top;
 
                     let newExpectedWidth = newTitleRect.height * imgRatio;
                     let newWallLeftX = 0;
@@ -89,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     physicsBounds.wallLeftX = newWallLeftX;
                     physicsBounds.wallRightX = newWallRightX;
 
-                    Body.setPosition(ground, { x: physicsBounds.width / 2, y: physicsBounds.groundY + thickness / 2 });
+                    Body.setPosition(chanweiSurface, { x: physicsBounds.width / 2, y: physicsBounds.groundY + thickness / 2 });
                     Body.setPosition(ceiling, { x: physicsBounds.width / 2, y: physicsBounds.ceilingY - thickness / 2 });
                     Body.setPosition(leftWall, { x: physicsBounds.wallLeftX - thickness / 2, y: physicsBounds.height / 2 });
                     Body.setPosition(rightWall, { x: physicsBounds.wallRightX + thickness / 2, y: physicsBounds.height / 2 });
@@ -122,8 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (pill.classList.contains('pill-2')) {
                         // 三角形 (3邊)，縮小半徑比例至 0.42 以完美貼合 SVG 視覺寬度，避免無形空氣牆
                         body = Bodies.polygon(startX, startY, 3, Math.max(rect.width, rect.height) * 0.42, {
-                            restitution: 0.7,
-                            friction: 0.1,
+                            restitution: 0.78,
+                            friction: 0.06,
                             frictionAir: 0.015,
                             chamfer: { radius: 30 }, // 配合視覺加大的圓角
                             angle: -Math.PI / 2 + (Math.random() - 0.5) * 0.2 // 初始設為尖端向上 (-90度)
@@ -131,25 +169,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (pill.classList.contains('pill-3') || pill.classList.contains('pill-1') && pill.innerText.includes('In Progress')) {
                         // 圓形
                         body = Bodies.circle(startX, startY, rect.width / 2, {
-                            restitution: 0.7,
-                            friction: 0.1,
+                            restitution: 0.78,
+                            friction: 0.06,
                             frictionAir: 0.015,
                             angle: (Math.random() - 0.5) * 0.2
                         });
                     } else if (pill.classList.contains('hero-image-wrapper')) {
                         // 圖片的方塊
                         body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
-                            restitution: 0.6,
-                            friction: 0.2,
-                            frictionAir: 0.02,
+                            restitution: 0.78,
+                            friction: 0.06,
+                            frictionAir: 0.018,
                             chamfer: { radius: 20 },
                             angle: (Math.random() - 0.5) * 0.1
                         });
                     } else {
                         // 膠囊 (預設)
                         body = Bodies.rectangle(startX, startY, rect.width, rect.height, {
-                            restitution: 0.7,
-                            friction: 0.1,
+                            restitution: 0.78,
+                            friction: 0.06,
                             frictionAir: 0.015,
                             chamfer: { radius: Math.min(rect.width, rect.height) / 2 },
                             angle: (Math.random() - 0.5) * 0.2
@@ -222,7 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-        }, 300); // 延遲等待圖片與排版載入完成
+        }
+
+        window.addEventListener('scroll', startPhysicsWhenReady, { passive: true });
+        window.addEventListener('pageshow', startPhysicsWhenReady);
+        startPhysicsWhenReady();
 
         // 自訂拖曳與拋擲邏輯，綁定剛體座標
         pills.forEach(pill => {
