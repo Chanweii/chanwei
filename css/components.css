@@ -203,25 +203,21 @@ figcaption {
     min-width: 30px;
 }
 
-/* ---- Pagination Dots (overlaid on images, tablet/mobile only) ---- */
+/* ---- Pagination Dots (tablet/mobile only) ---- */
 .slider-pagination {
     display: none;
     /* Hidden on desktop */
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    position: absolute;
-    bottom: 1.5rem;
-    /* Sits on top of images, not on text */
-    left: 0;
-    right: 0;
-    z-index: 10;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 0.75rem;
 }
 
 .slider-pagination .dot {
-    flex: 0 0 48px;
-    width: 48px;
-    height: 48px;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background-color: transparent;
     border: none;
@@ -234,10 +230,10 @@ figcaption {
 .slider-pagination .dot::before {
     content: "";
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: rgba(0, 0, 0, 0.18);
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
 }
@@ -247,8 +243,8 @@ figcaption {
 }
 
 .slider-pagination .dot.active::before {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     background-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -261,13 +257,14 @@ figcaption {
 
     .slider-pagination {
         display: flex;
+        position: static;
     }
 }
 
 /* --- MOBILE (≤768px): full-width single image --- */
 @media (max-width: 768px) {
     .horizontal-slider {
-        padding: 1.5rem 0;
+        padding: 1.5rem 0 0;
         margin: 0 !important;
         /* Override any inline margin-right */
     }
@@ -590,8 +587,8 @@ figcaption {
 }
 
 .lightbox-content {
-    max-width: 90vw; /* Large scale matching Apple's preview ratio */
-    max-height: 88vh;
+    max-width: 65vw; /* Reduced from 70vw */
+    max-height: 70vh;
     border-radius: 12px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     object-fit: contain;
@@ -626,6 +623,12 @@ figcaption {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+    outline: none;
+}
+
+.lightbox-close:focus,
+.lightbox-close:focus-visible {
+    outline: none !important;
 }
 
 .lightbox-close:hover {
@@ -656,6 +659,12 @@ figcaption {
     z-index: 10000;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    outline: none;
+}
+
+.lightbox-nav:focus,
+.lightbox-nav:focus-visible {
+    outline: none !important;
 }
 
 .lightbox-nav svg {
