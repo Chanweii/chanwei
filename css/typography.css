@@ -134,3 +134,12 @@
     margin-bottom: 2.5rem;
     line-height: 1.25;
 }
+
+/* ==============================
+   RWD Typography Adjustments
+   ============================== */
+@media (max-width: 768px) {
+    body, p, .body-text {
+        letter-spacing: 0.025em; /* 內文在手機版縮短為一半 (原本是 0.05em) */
+    }
+}
