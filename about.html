@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/base.css?v=lightbox-ui1">
     <link rel="stylesheet" href="css/typography.css?v=lightbox-ui1">
     <link rel="stylesheet" href="css/layout.css?v=lightbox-ui1">
+    <link rel="stylesheet" href="css/components.css?v=lightbox-ui1">
     <style>
         /* 針對 About 頁面的客製化樣式，後續可移至 css/about.css */
         .about-page {
@@ -145,6 +146,7 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            min-width: 0;
         }
 
         .about-bio .body-text {
@@ -154,6 +156,15 @@
         .about-bio .body-text strong {
             font-weight: 700;
             color: var(--color-black);
+        }
+
+        /* 針對「設計之外」藝廊的微調 (縮小間距與圓角) */
+        .about-beyond-gallery .slider-track {
+            gap: 1rem; /* 原本組件是 2rem */
+        }
+        
+        .about-beyond-gallery .slide-item img {
+            border-radius: 6px; /* 原本組件是 12px */
         }
 
         .about-label.custom-label {
@@ -812,6 +823,41 @@
                         <p class="body-text">
                             設計之外，我喜歡從電影觀察人與他人、社會之間的關係；也喜歡透過攝影記錄田野、旅行與日常的場景。
                         </p>
+                        <div class="about-beyond-gallery gallery-container" aria-label="設計之外照片">
+                            <div class="horizontal-slider">
+                                <div class="slider-track">
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC1.webp" alt="設計之外 1" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC2.webp" alt="設計之外 2" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC3.webp" alt="設計之外 3" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC4.webp" alt="設計之外 4" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC5.webp" alt="設計之外 5" loading="lazy" decoding="async">
+                                    </div>
+                                    <div class="slide-item">
+                                        <img src="picture/about/DSC6.webp" alt="設計之外 6" loading="lazy" decoding="async">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slider-pagination">
+                                <button class="dot active" type="button" aria-label="照片第 1 張"></button>
+                                <button class="dot" type="button" aria-label="照片第 2 張"></button>
+                                <button class="dot" type="button" aria-label="照片第 3 張"></button>
+                                <button class="dot" type="button" aria-label="照片第 4 張"></button>
+                                <button class="dot" type="button" aria-label="照片第 5 張"></button>
+                                <button class="dot" type="button" aria-label="照片第 6 張"></button>
+                            </div>
+                            <div class="slider-scrollbar">
+                                <div class="slider-scrollbar-thumb"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -893,6 +939,298 @@
                 requestAnimationFrame(loop);
             }
             loop();
+        })();
+
+        // Beyond Design gallery slider
+        (function () {
+            const gallery = document.querySelector('.about-beyond-gallery');
+            if (!gallery) return;
+
+            const slider = gallery.querySelector('.horizontal-slider');
+            const track = gallery.querySelector('.slider-track');
+            const items = gallery.querySelectorAll('.slide-item');
+            const dots = gallery.querySelectorAll('.dot');
+            const scrollbar = gallery.querySelector('.slider-scrollbar');
+            const scrollbarThumb = gallery.querySelector('.slider-scrollbar-thumb');
+
+            if (!slider || !track || items.length === 0) return;
+
+            slider.setAttribute('tabindex', '0');
+            slider.setAttribute('aria-label', '設計之外照片，水平滑動瀏覽');
+
+            const scrollToItem = (index) => {
+                const item = items[index];
+                if (!item) return;
+                slider.scrollTo({
+                    left: item.offsetLeft - track.offsetLeft,
+                    behavior: 'smooth'
+                });
+            };
+
+            const updateSliderState = () => {
+                let closestIndex = 0;
+                let minDistance = Infinity;
+                const sliderLeft = slider.scrollLeft;
+
+                items.forEach((item, index) => {
+                    const distance = Math.abs(item.offsetLeft - track.offsetLeft - sliderLeft);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === closestIndex);
+                });
+
+                if (!scrollbar || !scrollbarThumb) return;
+                const maxScroll = slider.scrollWidth - slider.clientWidth;
+                if (maxScroll <= 0) {
+                    scrollbar.style.display = 'none';
+                    return;
+                }
+
+                const thumbWidth = Math.max(30, (slider.clientWidth / slider.scrollWidth) * scrollbar.clientWidth);
+                const thumbLeft = (slider.scrollLeft / maxScroll) * (scrollbar.clientWidth - thumbWidth);
+                scrollbarThumb.style.width = `${thumbWidth}px`;
+                scrollbarThumb.style.marginLeft = `${thumbLeft}px`;
+            };
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => scrollToItem(index));
+            });
+
+            slider.addEventListener('scroll', updateSliderState);
+            window.addEventListener('resize', updateSliderState);
+            updateSliderState();
+        })();
+
+
+        // --- Image Lightbox Logic (Copied from script.js) ---
+        (function() {
+    let lightbox = document.getElementById('image-lightbox');
+    let lightboxImg = document.getElementById('lightbox-img');
+    let lightboxClose = document.querySelector('.lightbox-close');
+    let lightboxPrev = document.querySelector('.lightbox-nav.prev');
+    let lightboxNext = document.querySelector('.lightbox-nav.next');
+    const slideImages = document.querySelectorAll('.slide-item img');
+
+    if (slideImages.length > 0) {
+        // Dynamically create lightbox if it doesn't exist on the current page
+        if (!lightbox) {
+            lightbox = document.createElement('div');
+            lightbox.id = 'image-lightbox';
+            lightbox.className = 'lightbox';
+            lightbox.setAttribute('role', 'dialog');
+            lightbox.setAttribute('aria-modal', 'true');
+            lightbox.setAttribute('aria-label', '圖片檢視器');
+
+            lightboxClose = document.createElement('button');
+            lightboxClose.className = 'lightbox-close';
+            lightboxClose.setAttribute('aria-label', '關閉畫廊');
+            lightboxClose.innerHTML = '&times;';
+
+            lightboxPrev = document.createElement('button');
+            lightboxPrev.className = 'lightbox-nav prev';
+            lightboxPrev.setAttribute('aria-label', 'Previous image');
+            lightboxPrev.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            `;
+
+            lightboxImg = document.createElement('img');
+            lightboxImg.id = 'lightbox-img';
+            lightboxImg.className = 'lightbox-content';
+            lightboxImg.setAttribute('alt', '放大的專案圖片');
+
+            lightboxNext = document.createElement('button');
+            lightboxNext.className = 'lightbox-nav next';
+            lightboxNext.setAttribute('aria-label', 'Next image');
+            lightboxNext.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            `;
+
+            lightbox.appendChild(lightboxClose);
+            lightbox.appendChild(lightboxPrev);
+            lightbox.appendChild(lightboxImg);
+            lightbox.appendChild(lightboxNext);
+            document.body.appendChild(lightbox);
+        } else {
+            // Set references if lightbox exists statically
+            if (!lightboxPrev) lightboxPrev = lightbox.querySelector('.lightbox-nav.prev');
+            if (!lightboxNext) lightboxNext = lightbox.querySelector('.lightbox-nav.next');
+        }
+
+        let currentGalleryImages = [];
+        let currentImageIndex = 0;
+        let lastActiveElement = null; // Store trigger element to restore focus on close
+
+        const updateLightboxContent = () => {
+            if (currentGalleryImages.length > 0 && currentImageIndex >= 0 && currentImageIndex < currentGalleryImages.length) {
+                const currentImg = currentGalleryImages[currentImageIndex];
+                lightboxImg.src = currentImg.src;
+
+                // Hide/show navigation buttons based on current index bounds
+                if (lightboxPrev) {
+                    if (currentImageIndex === 0) {
+                        lightboxPrev.classList.add('hidden');
+                    } else {
+                        lightboxPrev.classList.remove('hidden');
+                    }
+                }
+
+                if (lightboxNext) {
+                    if (currentImageIndex === currentGalleryImages.length - 1) {
+                        lightboxNext.classList.add('hidden');
+                    } else {
+                        lightboxNext.classList.remove('hidden');
+                    }
+                }
+            }
+        };
+
+        // Initialize slide images for keyboard accessibility (role, tabindex, labels, enter/space trigger)
+        slideImages.forEach(img => {
+            img.setAttribute('tabindex', '0');
+            img.setAttribute('role', 'button');
+            const parentItem = img.closest('.slide-item');
+            const caption = parentItem ? parentItem.querySelector('.slide-caption') : null;
+            const captionText = caption ? caption.textContent.trim() : (img.alt || '作品圖片');
+            img.setAttribute('aria-label', `放大圖片：${captionText}`);
+
+            const openHandler = (e) => {
+                e.stopPropagation(); // Prevent trigger parent slide-item scroll click
+                lastActiveElement = img; // Remember which image triggered the lightbox
+                
+                // Identify the sibling images inside the same slider track
+                const parentTrack = img.closest('.slider-track') || img.closest('.horizontal-slider') || img.parentElement;
+                currentGalleryImages = Array.from(parentTrack.querySelectorAll('img'));
+                currentImageIndex = currentGalleryImages.indexOf(img);
+                
+                updateLightboxContent();
+                lightbox.classList.add('show');
+
+                // Shift focus to the close button inside the modal for keyboard accessibility
+                setTimeout(() => {
+                    if (lightboxClose) lightboxClose.focus();
+                }, 100);
+            };
+
+            img.addEventListener('click', openHandler);
+            img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault(); // Prevent scrolling on Space
+                    openHandler(e);
+                }
+            });
+        });
+
+        // Close lightbox function
+        const closeLightbox = () => {
+            lightbox.classList.remove('show');
+            setTimeout(() => {
+                lightboxImg.src = '';
+                // Restore focus to the triggering image element
+                if (lastActiveElement) {
+                    lastActiveElement.focus();
+                }
+            }, 300); // Clear src after transition ends
+        };
+
+        // Close when clicking X
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', closeLightbox);
+        }
+
+        // Close when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Navigation button event listeners
+        if (lightboxPrev) {
+            lightboxPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateLightboxContent();
+                    lightboxPrev.focus();
+                }
+            });
+        }
+
+        if (lightboxNext) {
+            lightboxNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentImageIndex < currentGalleryImages.length - 1) {
+                    currentImageIndex++;
+                    updateLightboxContent();
+                    lightboxNext.focus();
+                }
+            });
+        }
+        
+        // Keyboard navigation (Escape to close, Left/Right arrows to navigate)
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('show')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateLightboxContent();
+                }
+            } else if (e.key === 'ArrowRight') {
+                if (currentImageIndex < currentGalleryImages.length - 1) {
+                    currentImageIndex++;
+                    updateLightboxContent();
+                }
+            }
+        });
+
+        // Focus Trap: restrict tab navigation within the open lightbox modal
+        lightbox.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('show')) return;
+            if (e.key !== 'Tab') return;
+
+            // Collect currently visible and focusable modal controls
+            const focusableElements = [];
+            if (lightboxClose && window.getComputedStyle(lightboxClose).display !== 'none') {
+                focusableElements.push(lightboxClose);
+            }
+            if (lightboxPrev && !lightboxPrev.classList.contains('hidden') && window.getComputedStyle(lightboxPrev).display !== 'none') {
+                focusableElements.push(lightboxPrev);
+            }
+            if (lightboxNext && !lightboxNext.classList.contains('hidden') && window.getComputedStyle(lightboxNext).display !== 'none') {
+                focusableElements.push(lightboxNext);
+            }
+
+            if (focusableElements.length === 0) return;
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab: wrap around from first to last
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                }
+            } else { // Tab: wrap around from last to first
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+    }
+
         })();
 
         // Interactive tooltip behavior (mouse hover, mobile tap, and keyboard navigation)
