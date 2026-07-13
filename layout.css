@@ -1,0 +1,1105 @@
+/* Site layout, header, navigation, and home-page layout */
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem var(--grid-margin);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    max-width: 1920px;
+    margin: 0 auto;
+    background-color: var(--white);
+    /* 首頁上半段改為純白 */
+    --header-element-height: 3.5rem;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    /* 使 logo 區塊可伸縮以平衡左右空間 */
+    height: var(--header-element-height);
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 100%;
+}
+
+.logo img {
+    height: 75%;
+    /* 縮小比例以符合導航列 pill 的視覺高度 */
+    width: auto;
+    display: block;
+}
+
+.nav-pill {
+    background-color: #f2f2f2;
+    border-radius: 100px;
+    padding: 0.375rem 1.25rem;
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    /* 防止導航欄被壓縮 */
+    height: var(--header-element-height);
+    align-items: center;
+    /* 垂直置中內部的連結 */
+}
+
+.nav-pill a {
+    padding: 0 0.9rem;
+    /* 移除上下 padding，由父容器高度與 flex 居中控制 */
+    height: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    color: #3f3f3f;
+    text-decoration: none;
+}
+
+.nav-pill a:hover {
+    color: var(--color-primary);
+}
+
+.header-right {
+    flex: 1;
+    /* 使右側區塊與左側 logo 區塊寬度相同，達到中間置中效果 */
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 8rem 2rem 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--white);
+    /* 首頁上半段改為純白 */
+    overflow: hidden;
+    /* 防止物理標籤飛出邊界時拉長頁面 */
+}
+
+.hero-content {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* 將文字推往底端 */
+}
+
+.hero-title {
+    width: 100%;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+}
+
+/* Floating Elements */
+.floating-pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    background: var(--pill-bg-color, var(--white));
+    border: 1px solid var(--pill-border-color, var(--text-primary));
+    color: var(--pill-text-color, inherit);
+    border-radius: 100px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    z-index: 20;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.pill-3 {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    line-height: 1.2;
+    white-space: normal;
+    /* 允許換行 */
+}
+
+.pill-2 {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    aspect-ratio: 1 / 1;
+    width: 210px;
+    /* 放大三角形以增加文字左右留白 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.2;
+    white-space: normal;
+}
+
+.pill-2 .triangle-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: visible;
+}
+
+.pill-2 .triangle-bg path {
+    fill: var(--pill-bg-color, var(--white));
+    stroke: var(--pill-border-color, var(--text-primary));
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+}
+
+.pill-2 .pill-text {
+    z-index: 1;
+    margin-top: 35px;
+    /* 把文字進一步往下放，適應三角形重心與寬度 */
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+.hero-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: clamp(152px, 19vw, 260px);
+    aspect-ratio: 5 / 3;
+    height: auto;
+    overflow: hidden;
+    z-index: 20;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: clamp(12px, 1.4vw, 20px);
+    cursor: grab;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* About Section */
+.about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 6rem var(--grid-margin);
+    max-width: 1920px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--white);
+}
+
+.about p {
+    font-size: 1.0625rem;
+    line-height: 36px;
+    color: #363636;
+    text-align: justify;
+    letter-spacing: 0.05em;
+}
+
+.about-left {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.about-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 1.1rem;
+    margin-top: 1.5rem;
+    margin-left: -6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 1px solid #b8b8b8;
+    border-radius: 999px;
+    background: transparent;
+    letter-spacing: 0;
+    white-space: nowrap;
+    transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+
+.about-btn span {
+    margin-left: 0.6rem;
+}
+
+.about-btn:hover {
+    border-color: #222222;
+    color: #222222;
+}
+
+.about-right {
+    padding-right: 2rem;
+}
+
+.about-icon {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.circle-outline {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.arrow-down-right {
+    color: var(--text-secondary);
+}
+
+/* Work Section */
+.work {
+    padding: 6rem var(--grid-margin);
+    max-width: 1920px;
+    margin: 0 auto;
+    scroll-margin-top: 6rem;
+    background-color: var(--white);
+}
+
+.work-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.work h2 {
+    font-size: 2.625rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin-left: 8px;
+    /* Optical Alignment / Compensation for 20px border-radius below */
+}
+
+.work-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* 縮小間距適應獨立藥丸按鈕 */
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.custom-filter-pill {
+    padding: 0.4rem 1.25rem;
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-body);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.custom-filter-pill:hover {
+    border-color: rgba(0, 0, 0, 0.4);
+    color: var(--text-primary);
+}
+
+.custom-filter-pill.active {
+    background: #757575;
+    /* 對應截圖的深灰色背景 */
+    color: var(--white);
+    border-color: #757575;
+}
+
+.filter-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.filter-links a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.filter-links a.active {
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+}
+
+.filter-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Grid */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+    gap: 3.5rem 2.5rem;
+}
+
+.work-card-wrapper {
+    display: block;
+    container-type: inline-size;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    opacity: 1;
+}
+
+.work-card-wrapper.fade-in {
+    animation: fadeInCard 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.work-card-wrapper:hover {
+    transform: translateY(-8px);
+}
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: transparent;
+    padding: 0;
+    height: auto;
+    overflow: visible;
+    transition: none;
+}
+
+.work-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #eaeaea;
+    /* clean placeholder color */
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.work-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+    /* Hardware acceleration */
+    will-change: transform;
+}
+
+.work-card-wrapper:hover .work-image-wrapper img {
+    transform: scale(1.04);
+}
+
+/* Coming Soon Frosted Glass Overlay */
+.coming-soon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 5;
+    transform: translateZ(0);
+    /* Hardware acceleration */
+    will-change: opacity;
+}
+
+/* Show overlay on hover or active (clicked) state */
+.work-card-wrapper:hover .coming-soon-overlay,
+.work-card-wrapper.active .coming-soon-overlay {
+    opacity: 1;
+}
+
+.coming-soon-overlay span {
+    font-family: var(--font-latin);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* Swiss Typography Hierarchy */
+.work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    /* Removed margin-left to align flush left with image */
+}
+
+.work-tag {
+    background-color: var(--white);
+    color: var(--text-primary);
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    /* Reduced from 100px */
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    border: 1px solid #b8b8b8;
+    line-height: 1;
+    font-family: var(--font-latin);
+}
+
+.work-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0 0 0 2px;
+    /* Optical alignment offset */
+    letter-spacing: -0.01em;
+}
+
+.keep-together {
+    white-space: nowrap;
+}
+
+@container (max-width: 460px) {
+    .desktop-br {
+        display: none;
+    }
+}
+
+.work-desc {
+    font-size: 15px;
+    /* was 1rem (16px) */
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-body);
+    margin: 0.6rem 0 0 2px;
+    /* Optical alignment offset */
+    text-align: justify;
+}
+
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .about {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .about-left,
+    .about-right {
+        display: contents;
+    }
+
+    .about-btn {
+        order: 3;
+        margin-top: 0.5rem;
+        align-self: flex-start;
+    }
+
+    .hero-title {
+        font-size: 16vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-br {
+        display: none;
+    }
+    .header {
+        padding: 1.5rem 2rem;
+        flex-direction: column;
+        gap: 1rem;
+        --header-element-height: 2.8rem;
+        /* 手機版自動縮小高度 */
+    }
+
+    .logo {
+        flex: none;
+    }
+
+    .header-right {
+        display: none;
+    }
+
+    .hero {
+        padding: 4rem 0.5rem;
+    }
+
+    .hero-title {
+        width: 100%;
+    }
+
+    .about,
+    .work {
+        padding: 4rem 2rem;
+    }
+
+    .floating-pill {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .pill-2 {
+        width: 140px;
+    }
+
+    .pill-2 .pill-text {
+        margin-top: 25px;
+    }
+
+    .pill-3 {
+        padding: 1rem;
+    }
+
+    .work-filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-toggle {
+        margin-left: 0;
+    }
+}
+
+/* Footer Section */
+.site-footer {
+    padding: 4.5rem var(--grid-margin);
+    background-color: var(--white);
+}
+
+.footer-content {
+    max-width: 1920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4.5rem;
+}
+
+.footer-greeting {
+    text-align: left;
+}
+
+.footer-greeting-main {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--text-primary);
+}
+
+.footer-greeting-sub {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    color: #565656;
+}
+
+.footer-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+}
+
+.footer-bottom a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* Archive List Section */
+.archive-section {
+    padding: 6rem var(--grid-margin);
+    max-width: 1920px;
+    margin: 0 auto;
+    background-color: var(--bg-color);
+}
+
+.archive-header-wrapper {
+    margin-bottom: 3rem;
+}
+
+.archive-header-wrapper h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+    margin-left: 0;
+    /* Strictly flush left */
+}
+
+.archive-header-wrapper p {
+    font-size: 15px;
+    /* Match .work-desc */
+    color: var(--text-secondary);
+    line-height: 28px;
+    margin-left: 0;
+    /* Strictly flush left */
+    max-width: 800px;
+}
+
+.archive-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-item {
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
+}
+
+.archive-item:hover {
+    border-color: #222222;
+    /* Hover 時底線變黑 */
+}
+
+.archive-item:first-child {
+    border-top: 1px solid var(--border-color);
+}
+
+.archive-item-header {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    /* Match grid gutter */
+    align-items: center;
+    padding: 1.5rem 0;
+    /* Remove full-bleed padding */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+    /* 預留標題下方的線 */
+}
+
+.archive-item-header:hover {
+    background-color: #f6f6f6;
+    /* Lighter hover background */
+}
+
+.archive-item.active .archive-item-header {
+    border-bottom-color: #222222;
+    /* 展開時標題下方的線變黑 */
+}
+
+.archive-col {
+    font-size: 17px;
+    /* 1.0625rem, changed from 16px */
+    color: var(--text-primary);
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.archive-col.name {
+    grid-column: 1 / span 5;
+    /* 第一欄再往右更寬 (1-5) */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /* Title 與年份之間的間距 */
+}
+
+.archive-year {
+    font-size: 15px;
+    color: #565656;
+    /* 或您偏好的較淺顏色 */
+    font-weight: 400;
+    line-height: 1;
+}
+
+.archive-title {
+    font-size: inherit;
+    font-weight: 600;
+    color: inherit;
+    line-height: inherit;
+}
+
+.archive-col.type {
+    grid-column: 7 / span 2;
+    /* 第二欄再往右與about的a對齊 (7-8) */
+    color: #565656;
+    font-weight: 400;
+    text-align: left;
+    /* Align left based on grid design */
+}
+
+.archive-col.tasks {
+    grid-column: 9 / span 3;
+    /* 第三欄對齊導航pill 尾巴 (9-11) */
+    color: #565656;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    /* 預設隱藏超出的部分，並加上漸層淡出效果讓邊界更柔和 */
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+.archive-item-header:hover .archive-col.tasks.scroll-hover {
+    /* 只有加上 .scroll-hover 的長文字才會執行跑馬燈 */
+    animation: text-marquee 4s ease-in-out infinite alternate;
+}
+
+@keyframes text-marquee {
+    0% {
+        text-indent: 0;
+    }
+
+    100% {
+        text-indent: -120px;
+        /* 根據文字超出長度微調的位移量 */
+    }
+}
+
+.archive-col.toggle {
+    grid-column: span 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 24px;
+    /* 對稱留白 */
+}
+
+/* Tablet Layout (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .archive-item-header {
+        grid-template-columns: 1fr auto 40px;
+    }
+
+    .archive-col.name,
+    .archive-col.type,
+    .archive-col.toggle {
+        grid-column: auto;
+    }
+
+    .archive-col.tasks {
+        display: none !important;
+    }
+
+    .archive-col.type {
+        text-align: right;
+        /* Align right on tablet next to arrow */
+    }
+}
+
+/* Mobile Layout (max-width: 768px) */
+@media (max-width: 768px) {
+    .archive-item-header {
+        grid-template-columns: 1fr 40px;
+        gap: 0.5rem 1rem;
+        padding: 1.25rem 0;
+    }
+
+    .archive-col.name {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .archive-col.type {
+        grid-column: 1;
+        grid-row: 2;
+        text-align: left;
+        /* Align left under title on mobile */
+        font-size: 0.875rem;
+    }
+
+    .archive-col.toggle {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+    }
+}
+
+.toggle-icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+}
+
+.toggle-icon::before,
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--text-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Horizontal line */
+.toggle-icon::before {
+    width: 100%;
+    height: 1.5px;
+}
+
+/* Vertical line */
+.toggle-icon::after {
+    width: 1.5px;
+    height: 100%;
+}
+
+.archive-item.active .toggle-icon {
+    transform: rotate(90deg);
+    /* Rotate whole container by 90deg */
+}
+
+.archive-item.active .toggle-icon::before {
+    transform: translate(-50%, -50%) scaleX(0);
+    /* Horizontal line shrinks to 0 */
+}
+
+.archive-item.active .toggle-icon::after {
+    /* Vertical line stays, and since container rotated 90deg, it appears horizontal (-) */
+}
+
+.archive-item-content {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    opacity: 0;
+}
+
+.archive-item.active .archive-item-content {
+    max-height: 800px;
+    /* arbitrary large value, enough for content */
+    opacity: 1;
+    visibility: visible;
+}
+
+.archive-inner-content {
+    padding: 24px 0 60px 0;
+    /* 上下留白 */
+    color: #222222;
+    /* High contrast text on gray background */
+    font-size: 15px;
+    /* was 1rem (16px) */
+    line-height: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* =========================================
+   Swiss Grid Refactoring (Desktop Only)
+   ========================================= */
+@media (min-width: 1025px) {
+
+    /* 1. Header */
+    .header {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--grid-gap);
+    }
+
+    .logo {
+        grid-column: 1 / span 3;
+    }
+
+    .nav-pill {
+        grid-column: 5 / span 4;
+        justify-self: center;
+    }
+
+    .header-right {
+        grid-column: 10 / span 3;
+    }
+
+    /* 2. About Section */
+    .about {
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--grid-gap);
+    }
+
+    .about-left {
+        grid-column: 2 / span 5;
+        padding-left: 0;
+    }
+
+    .about-right {
+        grid-column: 7 / span 5;
+        padding-right: 0;
+    }
+
+    /* 3. Work Grid */
+    .work-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 3.5rem var(--grid-gap);
+    }
+
+    .work-card-wrapper {
+        grid-column: span 4;
+    }
+
+    /* 4. Archive Content */
+    .archive-inner-content {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1.5rem;
+        /* Match header gap */
+        align-items: flex-start;
+    }
+
+    .archive-text-content {
+        grid-column: 1 / span 5;
+        /* Matches name column */
+        /* Removed padding-left: 24px to align with name column */
+        min-width: 0;
+    }
+
+    .archive-text-content p {
+        margin-bottom: 14px;
+        /* 半行的行距 */
+    }
+
+    .archive-text-content p:last-child {
+        margin-bottom: 0;
+    }
+
+    .archive-text-content p:first-child {
+        margin-top: 0;
+        /* Align text with top of container */
+    }
+
+    .archive-inner-content .gallery-container {
+        grid-column: 7 / span 6;
+        /* Starts at col 7, spans to end, leaves col 6 as gap */
+        min-width: 0;
+    }
+
+    .archive-inner-content .horizontal-slider {
+        padding-top: 0;
+        /* Align image with top of container */
+    }
+}
+
+/* =========================================
+   Hover Image Preview (Desktop Only)
+   ========================================= */
+#hover-preview-container {
+    display: none !important;
+    /* Temporarily disabled by user request */
+    position: fixed;
+    top: 50%;
+    right: 15%;
+    width: auto;
+    height: auto;
+    pointer-events: none;
+    /* Let clicks pass through */
+    opacity: 0;
+    z-index: 9999;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    /* Set initial transform for animation */
+    transform: translateY(-50%) scale(0.9) rotate(0deg);
+}
+
+#hover-preview-container.active {
+    opacity: 1;
+    /* When active, slight scale up and rotation for dynamic feel */
+    /* The translate is handled by JS, but we add rotation and scale in JS */
+}
+
+#hover-preview-img {
+    display: block;
+    width: 220px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+    #hover-preview-container {
+        display: none !important;
+    }
+}

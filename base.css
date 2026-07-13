@@ -1,0 +1,104 @@
+/* Base element behavior */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto;
+}
+
+/* Image Protection (Prevents copying, dragging, right-click, and long-press) */
+img {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    font-variant-east-asian: normal;
+    font-feature-settings: "palt" 0;
+}
+
+/* 這是給 JavaScript 使用的：當辨識到英文時，強制將字距歸零 */
+.en-text {
+    letter-spacing: 0 !important;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 內文全域對齊設定：針對中英文混排的最佳實踐 */
+p {
+    text-align: justify;
+    text-justify: inter-ideograph;
+    word-break: break-word; /* 避免過長英文字撐破版面 */
+    overflow-wrap: break-word;
+}
+
+/* =========================================
+   ACCESSIBILITY & KEYBOARD FOCUS STYLES
+   ========================================= */
+
+/* Global focus indicator for keyboard users */
+*:focus-visible {
+    outline: 2px solid var(--color-black);
+    outline-offset: 4px;
+}
+
+/* Disable focus ring for mouse clicks where focus-visible handles keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Skip to main content link - hidden off-screen by default, slides down on focus */
+.skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-black);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 8px 8px;
+    z-index: 100000;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.skip-to-content:focus-visible {
+    top: 0;
+    outline: 2px solid var(--white);
+    outline-offset: -4px;
+}
+
+/* Conditional desktop cursor: only hide default cursor if script initialized custom cursor */
+@media (min-width: 1025px) {
+    body.has-custom-cursor {
+        cursor: none;
+    }
+    body.has-custom-cursor a,
+    body.has-custom-cursor button,
+    body.has-custom-cursor [role="button"],
+    body.has-custom-cursor input,
+    body.has-custom-cursor textarea,
+    body.has-custom-cursor select {
+        cursor: none;
+    }
+}
+
+

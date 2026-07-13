@@ -1,0 +1,145 @@
+/* Reusable typography */
+/* =========================================
+   TYPOGRAPHY SYSTEM
+   ========================================= */
+.body-text {
+    font-size: 1.0625rem;
+    /* 17px */
+    font-weight: 400;
+    line-height: 36px;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--text-body);
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.h1-zh {
+    font-size: 3rem;
+    /* 48px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    color: var(--color-black);
+    margin-bottom: 1rem;
+}
+
+.h1-en {
+    font-size: 2rem;
+    /* 32px */
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0em;
+    color: var(--color-black);
+}
+
+.small-text {
+    font-size: 0.9375rem;
+    /* 15px */
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.075em;
+}
+
+.project-nav-item {
+    font-size: 1.125rem;
+    /* 18px */
+    font-weight: 500;
+    line-height: 3;
+    /* 54px */
+    letter-spacing: 0.05em;
+    border-left: 2px solid var(--border-color);
+    padding-left: 1.25rem;
+    /* 20px */
+    list-style: none;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--color-gray);
+    display: block;
+    text-decoration: none;
+}
+
+.project-nav-item:hover {
+    color: var(--color-primary);
+}
+
+/* Sub-navigation under MY ROLE */
+.nav-sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.project-nav-sub-item {
+    display: block;
+    font-size: 0.8125rem;
+    /* 13px */
+    font-weight: 400;
+    line-height: 2.6;
+    letter-spacing: 0.04em;
+    color: var(--color-gray);
+    border-left: 2px solid var(--border-color);
+    padding-left: 1.25rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.project-nav-sub-item:hover {
+    color: var(--color-primary);
+}
+
+.section-heading {
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+.section-kicker {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+}
+
+.sub-heading {
+    /* Align with workshop.html default sub-heading styling */
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+/* ==============================
+   MY ROLE — Section Label & Hint
+   ============================== */
+.section-label-text {
+    font-size: 1.5rem;
+    /* 24px */
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.role-entry-hint {
+    font-size: 1.0625rem;
+    /* 17px */
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.25;
+}
+
+/* ==============================
+   RWD Typography Adjustments
+   ============================== */
+@media (max-width: 768px) {
+    body, p, .body-text {
+        letter-spacing: 0.025em; /* 內文在手機版縮短為一半 (原本是 0.05em) */
+    }
+}
