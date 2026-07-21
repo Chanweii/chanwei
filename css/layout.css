@@ -503,7 +503,7 @@
 }
 
 .work-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem; /* 微調縮小，確保長標題的第一行能塞下 16 個字 */
     font-weight: 700;
     line-height: 1.35;
     color: var(--text-primary);
@@ -516,17 +516,13 @@
     white-space: nowrap;
 }
 
-@container (max-width: 460px) {
-    .desktop-br {
-        display: none;
-    }
-}
+/* Container query for desktop-br removed to allow intentional breaking on desktop */
 
 .work-desc {
     font-size: 15px;
     /* was 1rem (16px) */
     font-weight: 400;
-    line-height: 28px;
+    line-height: 1.6;
     color: var(--text-body);
     margin: 0.6rem 0 0 2px;
     /* Optical alignment offset */
@@ -934,11 +930,8 @@
 
 .archive-item.active .toggle-icon::before {
     transform: translate(-50%, -50%) scaleX(0);
-    /* Horizontal line shrinks to 0 */
-}
-
-.archive-item.active .toggle-icon::after {
-    /* Vertical line stays, and since container rotated 90deg, it appears horizontal (-) */
+    /* Horizontal line shrinks to 0. 
+       The vertical line (::after) stays, and since the container rotated 90deg, it appears horizontal (-) */
 }
 
 .archive-item-content {
