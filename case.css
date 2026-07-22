@@ -262,7 +262,8 @@
 /* Sticky Sidebar */
 .case-sidebar {
     position: relative;
-    grid-column: 1 / span 2; /* 側邊欄從第一欄開始，與 TIMELINE 和 Logo 對齊 */
+    grid-column: 1 / span 2;
+    /* 側邊欄從第一欄開始，與 TIMELINE 和 Logo 對齊 */
 }
 
 .chapter-nav {
@@ -285,10 +286,19 @@
 
 /* Main Content */
 .case-content {
-    grid-column: 4 / span 8; /* 內文從第四欄開始，佔據 8 欄，留下第 12 欄為空白留白 */
+    grid-column: 4 / span 8;
+    /* 內文從第四欄開始，佔據 8 欄，留下第 12 欄為空白留白 */
     padding-bottom: 10rem;
     min-width: 0;
     /* Fixes CSS Grid Blowout (allows content to shrink below intrinsic width) */
+}
+
+.case-content .case-section>.body-text,
+.case-content .case-section>p,
+.case-content .case-section>ul:not([class*="objective"]),
+.case-content .case-section>ol:not([class*="objective"]),
+.case-content .case-section>.sub-heading {
+    max-width: 52em;
 }
 
 .case-section {
