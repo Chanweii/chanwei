@@ -1,5 +1,13 @@
 /* Specific styles for Energy Saver project */
 
+/* 內文加粗段落變色 */
+.case-content .body-text strong,
+.case-content .body-text b,
+.case-content p strong,
+.case-content p b {
+    color: #484848;
+}
+
 .objective-list-vertical {
     list-style: none;
     margin: 1.5rem 0 3rem 0;
@@ -105,7 +113,8 @@
 .showcase-divider {
     border: none;
     border-top: 1px solid var(--border-color, #e5e5e5);
-    margin: 0 0 0.5rem 0; /* 縮小與下方圖片的距離 */
+    margin: 0 0 0.5rem 0;
+    /* 縮小與下方圖片的距離 */
 }
 
 /* 1. 雙欄文字排版 */
@@ -115,6 +124,14 @@
     /* 左右欄接近均分，但右欄微幅多出一點空間 (約2-3字寬度)，不會太過明顯 */
     gap: 4rem;
     margin-bottom: 2rem;
+}
+
+/* 調整分欄內的段落行高與字號，使窄欄閱讀更舒適 */
+.showcase-text-grid .body-text,
+.showcase-text-grid p {
+    line-height: 1.85;
+    font-size: 1rem;
+    /* 16px */
 }
 
 /* 確保 grid 子項目在小螢幕下不撐破 */
@@ -173,53 +190,54 @@
         height: auto;
         width: 100%;
         max-width: 100%;
+    }
 }
 
 /* ==========================================================================
    References Layout (參考文獻區塊)
    ========================================================================== */
 
-.reference-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e5e5e5;
-}
+    .reference-item {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
 
-.reference-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
+    .reference-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 
-.reference-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    line-height: 1.5;
-    margin-bottom: 0.4rem;
-    color: var(--color-black);
-}
+    .reference-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 0.4rem;
+        color: var(--color-black);
+    }
 
-.reference-meta {
-    font-size: 0.95rem;
-    color: #6a6a6a;
-    line-height: 1.5;
-    margin-bottom: 0;
-}
+    .reference-meta {
+        font-size: 0.95rem;
+        color: #6a6a6a;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
 
-.ref-pill {
-    display: inline-flex;
-    align-items: center;
-    background-color: #f3f3f3;
-    color: #555;
-    text-decoration: none;
-    font-size: 0.85rem;
-    padding: 0.4rem 1.1rem;
-    border-radius: 100px;
-    font-weight: 500;
-    transition: var(--transition);
-}
+    .ref-pill {
+        display: inline-flex;
+        align-items: center;
+        background-color: #f3f3f3;
+        color: #555;
+        text-decoration: none;
+        font-size: 0.85rem;
+        padding: 0.4rem 1.1rem;
+        border-radius: 100px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
 
-.ref-pill:hover {
-    background-color: #e5e5e5;
-    color: var(--color-primary);
-}
+    .ref-pill:hover {
+        background-color: #e5e5e5;
+        color: var(--color-primary);
+    }
