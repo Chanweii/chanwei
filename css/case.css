@@ -199,14 +199,16 @@
 }
 
 .case-hero .h1-zh {
-    font-size: 40px;
-    margin-bottom: 0.5rem;
+    font-size: 32px; /* 降一階：從 40px 到 32px */
+    margin-bottom: 1rem; /* 16px (4 × 4) 讓標籤與標題組成完美的緊密群組 */
+    margin-left: 4px; /* 錯視對齊：抵銷下方 pill 標籤圓角造成的左邊界錯覺 */
 }
 
 .case-hero .h1-en {
-    font-size: 28px;
+    font-size: 24px; /* 降一階：從 28px 到 24px */
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
+    margin-left: 4px; /* 錯視對齊 */
 }
 
 .hero-tags {
@@ -555,5 +557,70 @@
     .numbered-list li {
         flex-direction: column;
         gap: 1rem;
+    }
+}
+
+/* ==============================
+   Full-Bleed Hero Cover (Lynn Wu Style Cinematic Banner - 4/8 Grid System)
+   ============================== */
+.case-hero-cover-full {
+    width: 100%;
+    height: clamp(320px, 25vw, 400px); /* 🌟 壓窄畫幅：呈現經典橫向全幅比例，釋出垂直高度 */
+    overflow: hidden;                  /* 🔒 RWD防呆第一層：切邊保護，不產生水平捲軸 */
+    background-color: #f3f3f3;
+    position: relative;
+    margin-top: 0;                     /* 無隙接壤導覽列，締造無死角視覺體驗 */
+    min-width: 0;                      /* 🔒 RWD防呆第二層：防止 Grid Blowout */
+}
+
+.case-hero-cover-full .case-hero-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;                 /* 自動定位焦點中心與飽滿不變形 */
+    object-position: center;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-hero-cover-full:hover .case-hero-cover-img {
+    transform: scale(1.02);
+}
+
+/* 經典呼吸感佈局：藉由變窄的圖片，為標題區塊注入更豐沛的 Whitespace */
+.case-study .case-container .case-hero {
+    padding-top: 3rem !important;      /* 48px (4 × 12) 賦予大氣留白 */
+    padding-bottom: 3rem !important;   /* 48px (4 × 12) 與頂部對稱的 48-16-48 黃金留白 */
+}
+
+.case-study .case-container .case-hero .hero-tags {
+    margin-bottom: 0 !important;       /* 歸零浪費的空白邊 */
+}
+
+.case-study .case-container .case-meta {
+    padding: 2rem 0 !important;        /* 32px (4 × 8) 維持 Meta 總覽格內充，保有呼吸感 */
+    margin-bottom: 4rem !important;    /* 64px 區割下文，保持節奏 */
+}
+
+/* 📱 RWD 三階響應式：平板及手機平滑按比例維持完美構圖 */
+@media (max-width: 1024px) {
+    .case-hero-cover-full {
+        height: 320px;                 /* 4 × 80 = 320px 平板視野 */
+    }
+    .case-study .case-container .case-hero {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.25rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .case-hero-cover-full {
+        height: 256px;                 /* 4 × 64 = 256px 手機滿版絕佳顯示比 */
+    }
+    .case-study .case-container .case-hero {
+        padding-top: 1.25rem !important;
+        padding-bottom: 1rem !important;
+    }
+    .case-study .case-container .case-meta {
+        padding: 1.5rem 0 !important;  /* 24px 手機端適度縮減 */
     }
 }
