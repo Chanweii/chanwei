@@ -424,8 +424,13 @@ function setupSliderPagination() {
         // --- SCROLLBAR (desktop) ---
         function updateScrollbar() {
             if (!scrollbar || !scrollbarThumb) return;
+            
+            // 每次計算前先強制歸零狀態，避免一去不回
+            scrollbar.style.display = 'block';
+            
             const maxScroll = slider.scrollWidth - slider.clientWidth;
-            if (maxScroll <= 0) {
+            // 容差設定：考量小數點誤差，設定 <= 1 即可隱藏
+            if (maxScroll <= 1) {
                 scrollbar.style.display = 'none';
                 return;
             }
@@ -501,6 +506,15 @@ function setupSliderPagination() {
 
         // Initial render
         updateScrollbar();
+
+        // 綁定 ResizeObserver：只要圖片載入撐開容器，或視窗縮放，隨時重新校正滑軌！
+        const resizeObserver = new ResizeObserver(() => {
+            updateScrollbar();
+        });
+        resizeObserver.observe(slider);
+        
+        // 保險起見同步綁定 window resize
+        window.addEventListener('resize', updateScrollbar);
     });
 }
 
