@@ -199,13 +199,13 @@
 }
 
 .case-hero .h1-zh {
-    font-size: 32px; /* 降一階：從 40px 到 32px */
+    font-size: clamp(26px, 4vw, 32px); /* 📱 RWD：桌機 32px，手機平滑縮小至 26px */
     margin-bottom: 1rem; /* 16px (4 × 4) 讓標籤與標題組成完美的緊密群組 */
     margin-left: 4px; /* 錯視對齊：抵銷下方 pill 標籤圓角造成的左邊界錯覺 */
 }
 
 .case-hero .h1-en {
-    font-size: 24px; /* 降一階：從 28px 到 24px */
+    font-size: clamp(20px, 3vw, 24px); /* 📱 RWD：桌機 24px，手機平滑縮小至 20px */
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
     margin-left: 4px; /* 錯視對齊 */
@@ -346,7 +346,7 @@
     font-weight: 600;
     color: #686868;
     line-height: 1.2;
-    margin-top: -1.2px;
+    margin-top: 4px;              /* 🌟 4/8 網格錯視對齊：抵消中文字體隱匿的高行距前導隙縫，達到 100% 水平字切齊！ */
 }
 
 
@@ -565,7 +565,7 @@
    ============================== */
 .case-hero-cover-full {
     width: 100%;
-    height: clamp(320px, 25vw, 400px); /* 🌟 壓窄畫幅：呈現經典橫向全幅比例，釋出垂直高度 */
+    height: 384px;                     /* 🌟 48 × 8 = 384px：嚴格對齊網格的主頁面闊度壯闊畫幅 */
     overflow: hidden;                  /* 🔒 RWD防呆第一層：切邊保護，不產生水平捲軸 */
     background-color: #f3f3f3;
     position: relative;
@@ -576,7 +576,7 @@
 .case-hero-cover-full .case-hero-cover-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;                 /* 自動定位焦點中心與飽滿不變形 */
+    object-fit: cover;                 /* 🌟 微度裁切容許：以最大化橫向優先，自負擔輕微修正，拒絕脫離結構網格！ */
     object-position: center;
     display: block;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -604,7 +604,7 @@
 /* 📱 RWD 三階響應式：平板及手機平滑按比例維持完美構圖 */
 @media (max-width: 1024px) {
     .case-hero-cover-full {
-        height: 320px;                 /* 4 × 80 = 320px 平板視野 */
+        height: 288px;                 /* 🌟 36 × 8 = 288px：遞減 96px 穩紮支撐平板氣場 */
     }
     .case-study .case-container .case-hero {
         padding-top: 1.5rem !important;
@@ -614,7 +614,7 @@
 
 @media (max-width: 640px) {
     .case-hero-cover-full {
-        height: 256px;                 /* 4 × 64 = 256px 手機滿版絕佳顯示比 */
+        height: 192px;                 /* 🌟 24 × 8 = 192px：在 iPhone 上維持約 2:1 的完美長幅與網格尊尚感！ */
     }
     .case-study .case-container .case-hero {
         padding-top: 1.25rem !important;

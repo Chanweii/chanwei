@@ -53,7 +53,7 @@ figcaption {
 
 .feedback-card {
     background-color: var(--bg-color);
-    padding: 2rem 2.5rem;
+    padding: 2rem 2.5rem 1.5rem 2.5rem; /* 🌟 錯視補償：上緣 32px、下緣微降至 24px，吸收文字行高延伸邊界的沉重，達成真正的上下等邊！ */
     border-radius: 16px;
     display: flex;
     gap: 1.5rem;
@@ -93,7 +93,8 @@ figcaption {
 
 .feedback-card p {
     font-size: 0.95rem;
-    line-height: 1.65;
+    line-height: 1.8;             /* 🌟 1.8 倍黃金閱讀比例：拿捏準確的張力，擺脫飄忽不拘感！ */
+    letter-spacing: 0.04em;       /* 🌟 增潤呼吸感字距，同步與內文的高奢閱感遙相呼應 */
     color: var(--text-body);
     font-style: normal;
     margin: 0;
@@ -514,6 +515,7 @@ figcaption {
     letter-spacing: 0.04em;
     line-height: 1.4;
     margin: 0;
+    text-align: center;           /* 🌟 強制文本一體切入中央對稱線，隔絕底層 CSS 向左推偏！ */
 }
 
 .role-card-desc {
@@ -526,6 +528,7 @@ figcaption {
     line-height: 1.65;
     letter-spacing: 0.04em;
     margin: 0;
+    text-align: center;           /* 🌟 100% 自主宣誓中央平衡，讓雙行列字優雅無暇坐落在美感中軸。 */
 }
 
 /* ==============================
