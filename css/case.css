@@ -344,7 +344,7 @@
 .objective-list .num {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #686868;
+    color: #6f6f6f;
     line-height: 1.2;
     margin-top: 4px;              /* 🌟 4/8 網格錯視對齊：抵消中文字體隱匿的高行距前導隙縫，達到 100% 水平字切齊！ */
 }
