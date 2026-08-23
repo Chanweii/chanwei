@@ -224,7 +224,7 @@
 .about p {
     font-size: 1.0625rem;
     line-height: 36px;
-    color: #333333;
+    color: #242424;
     text-align: justify;
     letter-spacing: 0.05em;
 }
@@ -504,7 +504,7 @@
 
 .work-title {
     font-size: 1.35rem; /* 微調縮小，確保長標題的第一行能塞下 16 個字 */
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.35;
     color: var(--text-primary);
     margin: 0 0 0 2px;

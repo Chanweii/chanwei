@@ -71,7 +71,7 @@
     --bg-color: #f9f9f9;
     --text-primary: #1A1A1A;
     --text-secondary: #6f6f6f;
-    --text-body: #333333;
+    --text-body: #242424;
     --white: #ffffff;
     --card-bg: #ffffff;
     --pill-bg: #e0e0e0;
@@ -93,7 +93,7 @@
     --font-main: var(--font-latin), var(--font-cjk-regular), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     --font-emphasis: var(--font-latin), var(--font-cjk-emphasis), -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
-    --color-primary: #333333;
+    --color-primary: #242424;
     --color-black: #1A1A1A;
     --color-gray: #4f4f4f;
 
