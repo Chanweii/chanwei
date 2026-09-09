@@ -224,7 +224,7 @@
 .about p {
     font-size: 1.0625rem;
     line-height: 36px;
-    color: #242424;
+    color: #222222;
     text-align: justify;
     letter-spacing: 0.05em;
 }
@@ -503,7 +503,8 @@
 }
 
 .work-title {
-    font-size: 1.35rem; /* 微調縮小，確保長標題的第一行能塞下 16 個字 */
+    font-size: 1.35rem;
+    /* 微調縮小，確保長標題的第一行能塞下 16 個字 */
     font-weight: 600;
     line-height: 1.35;
     color: var(--text-primary);
@@ -569,6 +570,7 @@
     .desktop-br {
         display: none;
     }
+
     .header {
         padding: 1.5rem 2rem;
         flex-direction: column;
@@ -697,7 +699,8 @@
     padding: 6rem var(--grid-margin);
     max-width: 1920px;
     margin: 0 auto;
-    background-color: var(--bg-color);
+    background-color: var(--white);
+    border-top: 1px solid var(--border-color);
 }
 
 .archive-header-wrapper {
@@ -730,12 +733,13 @@
 
 .archive-item {
     border-bottom: 1px solid var(--border-color);
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, border-bottom-width 0.3s ease;
 }
 
 .archive-item:hover {
-    border-color: #222222;
-    /* Hover 時底線變黑 */
+    border-color: #c4c4c4;
+    border-bottom-width: 2px;
+    /* Hover 時底線變黑加粗 */
 }
 
 .archive-item:first-child {
@@ -757,12 +761,11 @@
 }
 
 .archive-item-header:hover {
-    background-color: #f6f6f6;
-    /* Lighter hover background */
+    background-color: transparent;
 }
 
 .archive-item.active .archive-item-header {
-    border-bottom-color: #222222;
+    border-bottom-color: #c4c4c4;
     /* 展開時標題下方的線變黑 */
 }
 
@@ -962,6 +965,26 @@
     gap: 2rem;
 }
 
+/* Archive text formatting (Global) */
+.archive-text-content .slide-text strong {
+    display: block;
+    margin-bottom: 2px; /* 縮窄標題與說明的間距 */
+}
+
+.archive-text-content p {
+    margin-bottom: 8px;
+    /* 半行的行距 */
+}
+
+.archive-text-content p:last-child {
+    margin-bottom: 0;
+}
+
+.archive-text-content p:first-child {
+    margin-top: 0;
+    /* Align text with top of container */
+}
+
 /* =========================================
    Swiss Grid Refactoring (Desktop Only)
    ========================================= */
@@ -1019,29 +1042,25 @@
         grid-template-columns: repeat(12, 1fr);
         gap: 1.5rem;
         /* Match header gap */
-        align-items: flex-start;
+        align-items: stretch;
     }
 
     .archive-text-content {
         grid-column: 1 / span 5;
         /* Matches name column */
-        /* Removed padding-left: 24px to align with name column */
         min-width: 0;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
 
-    .archive-text-content p {
-        margin-bottom: 14px;
-        /* 半行的行距 */
+    .archive-text-content .slider-texts {
+        position: absolute;
+        top: 110px; /* Adjusted to reduce gap */
+        width: 100%;
     }
 
-    .archive-text-content p:last-child {
-        margin-bottom: 0;
-    }
 
-    .archive-text-content p:first-child {
-        margin-top: 0;
-        /* Align text with top of container */
-    }
 
     .archive-inner-content .gallery-container {
         grid-column: 7 / span 6;
@@ -1051,7 +1070,32 @@
 
     .archive-inner-content .horizontal-slider {
         padding-top: 0;
-        /* Align image with top of container */
+        padding-bottom: 0;
+        /* Align image with top of container and let pagination margin dictate the gap */
+    }
+
+    /* Archive specific slider overrides (one image at a time with dots) */
+    .archive-inner-content .slider-track {
+        width: auto;
+    }
+
+    .archive-inner-content .slide-item {
+        align-items: center;
+        width: 100%;
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+    }
+
+    .archive-inner-content .slide-item img {
+        height: 320px !important;
+    }
+
+    .archive-inner-content .slider-scrollbar {
+        display: none !important;
+    }
+
+    .archive-inner-content .slider-pagination {
+        display: flex !important;
     }
 }
 

@@ -3,10 +3,10 @@
    TYPOGRAPHY SYSTEM
    ========================================= */
 .body-text {
-    font-size: 1.0625rem;
-    /* 17px */
+    font-size: 1rem;
+    /* 16px */
     font-weight: 400;
-    line-height: 36px;
+    line-height: 28px;
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
     color: var(--text-body);
@@ -127,12 +127,12 @@
 }
 
 .role-entry-hint {
-    font-size: 1.0625rem;
-    /* 17px */
+    font-size: 1rem;
+    /* 16px */
     font-weight: 500;
     color: var(--text-secondary);
     margin-bottom: 2.5rem;
-    line-height: 1.25;
+    line-height: 1.4;
 }
 
 /* ==============================
