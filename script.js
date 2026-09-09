@@ -375,8 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function adjustEnglishSpacing() {
-    // 鎖定想要調整的內文區塊
-    const containers = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, span, div, a, button, label');
+    // 鎖定想要調整的內文區塊，加入 strong, em, b, i
+    const containers = document.querySelectorAll('p, li, h1, h2, h3, h4, h5, h6, span:not(.en-text), div, a, button, label, strong, em, b, i');
 
     // 正則表達式：找出英文單字、數字及常用半形符號
     const regex = /([a-zA-Z0-9\s!@#$%^&*()_+={}\[\]:;"'<>,.?/-]+)/g;
@@ -385,13 +385,48 @@ function adjustEnglishSpacing() {
         // 避免重複處理
         if (container.dataset.spacingAdjusted) return;
 
-        // Skip elements that contain other elements to avoid destroying DOM structure
-        if (container.children.length > 0) return;
+        // 收集所有第一層文字節點
+        const textNodes = [];
+        for (let i = 0; i < container.childNodes.length; i++) {
+            if (container.childNodes[i].nodeType === Node.TEXT_NODE) {
+                textNodes.push(container.childNodes[i]);
+            }
+        }
 
-        container.innerHTML = container.innerHTML.replace(regex, (match) => {
-            // 排除掉原本就是 HTML 標籤的內容
-            if (match.trim().length === 0) return match;
-            return `<span class="en-text">${match}</span>`;
+        textNodes.forEach(node => {
+            const text = node.nodeValue;
+            if (text.trim().length === 0) return; // 略過全空白節點
+
+            // 重置 regex index
+            regex.lastIndex = 0;
+            if (!regex.test(text)) return; // 若無符合則跳過
+            
+            regex.lastIndex = 0;
+            const fragment = document.createDocumentFragment();
+            let lastIndex = 0;
+            let match;
+
+            while ((match = regex.exec(text)) !== null) {
+                if (match.index > lastIndex) {
+                    fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+                }
+                
+                if (match[0].trim().length > 0) {
+                    const span = document.createElement('span');
+                    span.className = 'en-text';
+                    span.textContent = match[0];
+                    fragment.appendChild(span);
+                } else {
+                    fragment.appendChild(document.createTextNode(match[0]));
+                }
+                lastIndex = regex.lastIndex;
+            }
+            
+            if (lastIndex < text.length) {
+                fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+            }
+            
+            node.parentNode.replaceChild(fragment, node);
         });
 
         container.dataset.spacingAdjusted = "true";
@@ -463,6 +498,34 @@ function setupSliderPagination() {
                 dots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === closestIndex);
                 });
+
+                // Update synchronized texts if they exist
+                const archiveInner = slider.closest('.archive-inner-content');
+                if (archiveInner) {
+                    const slideTexts = archiveInner.querySelectorAll('.slider-texts .slide-text');
+                    slideTexts.forEach((text, index) => {
+                        if (index === closestIndex) {
+                            text.classList.add('active');
+                            text.style.display = 'block';
+                        } else {
+                            text.classList.remove('active');
+                            text.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Update custom showcase gallery captions
+                const customGallery = slider.closest('.custom-showcase-gallery');
+                if (customGallery) {
+                    const customCaptions = customGallery.querySelectorAll('.custom-slider-captions .custom-caption');
+                    customCaptions.forEach((caption, index) => {
+                        if (index === closestIndex) {
+                            caption.style.display = 'block';
+                        } else {
+                            caption.style.display = 'none';
+                        }
+                    });
+                }
             }
 
             // Update scrollbar
@@ -489,6 +552,41 @@ function setupSliderPagination() {
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // --- KEYBOARD NAVIGATION (Left/Right Arrows) ---
+        slider.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault(); // Prevent default scroll
+                
+                // Find current closest index
+                let closestIndex = 0;
+                let minDistance = Infinity;
+                const sliderLeft = slider.scrollLeft;
+                
+                items.forEach((item, index) => {
+                    const distance = Math.abs(item.offsetLeft - track.offsetLeft - sliderLeft);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                
+                let nextIndex = closestIndex;
+                if (e.key === 'ArrowLeft') {
+                    nextIndex = Math.max(0, closestIndex - 1);
+                } else if (e.key === 'ArrowRight') {
+                    nextIndex = Math.min(items.length - 1, closestIndex + 1);
+                }
+                
+                if (nextIndex !== closestIndex) {
+                    const targetItem = items[nextIndex];
+                    slider.scrollTo({
+                        left: targetItem.offsetLeft - track.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            }
         });
 
         // --- CLICK SCROLLBAR to jump ---
@@ -638,6 +736,13 @@ document.addEventListener('mouseup', (e) => {
     const cursor = document.querySelector('.custom-cursor') || document.createElement('div');
     if (!cursor.classList.contains('custom-cursor')) {
         cursor.className = 'custom-cursor';
+        cursor.innerHTML = `
+            <svg class="cursor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span class="cursor-text">點擊即可關閉</span>
+        `;
         document.body.appendChild(cursor);
     }
 
@@ -666,12 +771,27 @@ document.addEventListener('mouseup', (e) => {
     const interactiveSelectors = 'a, button, [role="button"], .project-nav-item, .slide-item, .dot, .work-card-wrapper';
     const syncCursorHover = (target) => {
         const interactiveElement = target && target.closest ? target.closest(interactiveSelectors) : null;
+        
+        // Lightbox specific logic for closing
+        const inLightbox = target && target.closest ? target.closest('.lightbox') : null;
+        if (inLightbox) {
+            const isClickableInsideLightbox = target.closest('.lightbox-content, .lightbox-close, .lightbox-nav, .lightbox-caption');
+            if (!isClickableInsideLightbox) {
+                // We are hovering on the white backdrop of the lightbox
+                cursor.classList.add('close-pill');
+                cursor.classList.remove('hover'); // Overrides standard hover
+                return;
+            }
+        }
+        
+        cursor.classList.remove('close-pill');
         cursor.classList.toggle('hover', Boolean(interactiveElement));
     };
 
     document.addEventListener('mousemove', (e) => {
         if (!isDesktop() || !document.body.classList.contains('has-custom-cursor')) {
             cursor.classList.remove('hover');
+            cursor.classList.remove('close-pill');
             return;
         }
         syncCursorHover(e.target);
@@ -807,6 +927,7 @@ document.addEventListener('mouseup', (e) => {
     // Image Lightbox Logic
     let lightbox = document.getElementById('image-lightbox');
     let lightboxImg = document.getElementById('lightbox-img');
+    let lightboxCaption = document.getElementById('lightbox-caption');
     let lightboxClose = document.querySelector('.lightbox-close');
     let lightboxPrev = document.querySelector('.lightbox-nav.prev');
     let lightboxNext = document.querySelector('.lightbox-nav.next');
@@ -841,6 +962,10 @@ document.addEventListener('mouseup', (e) => {
             lightboxImg.className = 'lightbox-content';
             lightboxImg.setAttribute('alt', '放大的專案圖片');
 
+            lightboxCaption = document.createElement('div');
+            lightboxCaption.id = 'lightbox-caption';
+            lightboxCaption.className = 'lightbox-caption';
+
             lightboxNext = document.createElement('button');
             lightboxNext.className = 'lightbox-nav next';
             lightboxNext.setAttribute('aria-label', 'Next image');
@@ -853,12 +978,14 @@ document.addEventListener('mouseup', (e) => {
             lightbox.appendChild(lightboxClose);
             lightbox.appendChild(lightboxPrev);
             lightbox.appendChild(lightboxImg);
+            lightbox.appendChild(lightboxCaption);
             lightbox.appendChild(lightboxNext);
             document.body.appendChild(lightbox);
         } else {
             // Set references if lightbox exists statically
             if (!lightboxPrev) lightboxPrev = lightbox.querySelector('.lightbox-nav.prev');
             if (!lightboxNext) lightboxNext = lightbox.querySelector('.lightbox-nav.next');
+            if (!lightboxCaption) lightboxCaption = lightbox.querySelector('.lightbox-caption');
         }
 
         let currentGalleryImages = [];
@@ -869,6 +996,32 @@ document.addEventListener('mouseup', (e) => {
             if (currentGalleryImages.length > 0 && currentImageIndex >= 0 && currentImageIndex < currentGalleryImages.length) {
                 const currentImg = currentGalleryImages[currentImageIndex];
                 lightboxImg.src = currentImg.src;
+
+                // Update caption
+                if (lightboxCaption) {
+                    let captionHTML = '';
+                    const parentItem = currentImg.closest('.slide-item');
+                    const oldCaption = parentItem ? parentItem.querySelector('.slide-caption') : null;
+                    if (oldCaption) {
+                        // Standard galleries (e.g. workshop.html, energysaver.html)
+                        captionHTML = oldCaption.innerHTML;
+                    } else {
+                        // Archive gallery on index.html
+                        const track = currentImg.closest('.slider-track');
+                        if (track) {
+                            const items = Array.from(track.querySelectorAll('.slide-item img'));
+                            const idx = items.indexOf(currentImg);
+                            const archiveInner = currentImg.closest('.archive-inner-content');
+                            if (archiveInner && idx !== -1) {
+                                const slideTexts = archiveInner.querySelectorAll('.slider-texts .slide-text p');
+                                if (slideTexts[idx]) {
+                                    captionHTML = slideTexts[idx].innerHTML;
+                                }
+                            }
+                        }
+                    }
+                    lightboxCaption.innerHTML = captionHTML;
+                }
 
                 // Hide/show navigation buttons based on current index bounds
                 if (lightboxPrev) {
@@ -990,6 +1143,79 @@ document.addEventListener('mouseup', (e) => {
                 }
             }
         });
+
+        // Touch and Trackpad Swipe navigation
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isWheelSwiping = false;
+        let wheelTimeout;
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        const handleSwipe = () => {
+            if (!lightbox.classList.contains('show')) return;
+            const threshold = 50; // minimum distance to trigger swipe
+            if (touchEndX < touchStartX - threshold) {
+                // Swipe left -> Next image
+                if (currentImageIndex < currentGalleryImages.length - 1) {
+                    currentImageIndex++;
+                    updateLightboxContent();
+                }
+            }
+            if (touchEndX > touchStartX + threshold) {
+                // Swipe right -> Prev image
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateLightboxContent();
+                }
+            }
+        };
+
+        // Trackpad horizontal scroll (Wheel event)
+        let accumulatedDeltaX = 0;
+        lightbox.addEventListener('wheel', (e) => {
+            if (!lightbox.classList.contains('show')) return;
+            // Check if it's a horizontal scroll
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault(); // Prevent page history swipe
+                if (isWheelSwiping) return; // Cooldown active
+
+                accumulatedDeltaX += e.deltaX;
+
+                if (Math.abs(accumulatedDeltaX) > 60) {
+                    isWheelSwiping = true;
+                    if (accumulatedDeltaX > 0) {
+                        // Scroll right (two fingers left) -> Next image
+                        if (currentImageIndex < currentGalleryImages.length - 1) {
+                            currentImageIndex++;
+                            updateLightboxContent();
+                        }
+                    } else {
+                        // Scroll left (two fingers right) -> Prev image
+                        if (currentImageIndex > 0) {
+                            currentImageIndex--;
+                            updateLightboxContent();
+                        }
+                    }
+
+                    // Reset accumulated delta and swipe block after a delay
+                    accumulatedDeltaX = 0;
+                    clearTimeout(wheelTimeout);
+                    wheelTimeout = setTimeout(() => {
+                        isWheelSwiping = false;
+                    }, 400); // 400ms cooldown between swipes
+                }
+            } else {
+                accumulatedDeltaX = 0; // Reset if vertical scroll
+            }
+        }, { passive: false });
 
         // Focus Trap: restrict tab navigation within the open lightbox modal
         lightbox.addEventListener('keydown', (e) => {

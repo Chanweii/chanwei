@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略 - Chanwei</title>
+    <!-- SEO & Open Graph Meta Tags -->
+    <meta name="description" content="探討產品生命週期、永續行為設計與循環容器系統之綠色設計開發策略。">
+    <meta property="og:title" content="從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略 - Chanwei">
+    <meta property="og:description" content="探討產品生命週期、永續行為設計與循環容器系統之綠色設計開發策略。">
+    <meta property="og:image" content="https://chanweii.github.io/chanwei/picture/index/title_logo.webp">
+    <meta property="og:url" content="https://chanweii.github.io/chanwei/reusable-containers-strategy-research.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略 - Chanwei">
+    <meta name="twitter:description" content="探討產品生命週期、永續行為設計與循環容器系統之綠色設計開發策略。">
+    <meta name="twitter:image" content="https://chanweii.github.io/chanwei/picture/index/title_logo.webp">
+    <link rel="icon" type="image/webp" href="picture/index/title_logo.webp">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/typography.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/case.css">
+
+    <!-- Page Specific Overrides -->
+    <style>
+        /* Lightbox Customization for A4 Double-sided reading */
+        .lightbox {
+            background-color: #e5e5ea !important;
+            /* Apple Preview-like Gray */
+        }
+
+        .lightbox-content {
+            max-width: 90vw !important;
+            max-height: 85vh !important;
+            border-radius: 4px !important;
+            /* A4 pages usually have sharp or slightly rounded corners */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .lightbox-caption {
+            display: none !important;
+            /* User requested no captions when clicking images in this specific project */
+        }
+
+        /* Make nav buttons and close button more visible on gray if needed */
+        .lightbox-close,
+        .lightbox-nav {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            color: #333 !important;
+        }
+
+        /* 針對「政策介入框架」特定圖片覆蓋燈箱設定 */
+        .lightbox:has(img[src*="policy-intervention-framework"]) {
+            background-color: #ffffff !important;
+            /* 純白背景 */
+        }
+
+        .lightbox:has(img[src*="policy-intervention-framework"]) .lightbox-content {
+            max-width: min(1000px, 85vw) !important;
+            /* 縮小一點，不用放到滿版最大 */
+            box-shadow: none !important;
+            /* 移除陰影完美融入白底 */
+        }
+
+        .lightbox:has(img[src*="policy-intervention-framework"]) .lightbox-close,
+        .lightbox:has(img[src*="policy-intervention-framework"]) .lightbox-nav {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+            /* 在純白背景下，讓按鈕底色變成淺灰以維持可見度 */
+        }
+
+        /* 針對窄版長型圖片（如第三張設計準則），改用高度撐滿，底部對齊圖二 */
+        .custom-showcase-gallery .showcase-img.showcase-img-narrow {
+            top: auto !important;
+            bottom: 0px !important;
+            width: auto !important;
+            height: 110% !important;
+            transform: translateX(-50%) translateY(65px) scale(1) !important;
+        }
+
+        .custom-showcase-gallery .showcase-bg:hover .showcase-img-narrow {
+            transform: translateX(-50%) translateY(58px) scale(1.01) !important;
+        }
+
+        /* 針對共現網路分析圖的燈箱設定（與政策介入框架相同） */
+        .lightbox:has(img[src*="co-occurrence"]) {
+            background-color: #ffffff !important;
+        }
+
+        .lightbox:has(img[src*="co-occurrence"]) .lightbox-content {
+            max-width: min(1000px, 85vw) !important;
+            box-shadow: none !important;
+        }
+
+        .lightbox:has(img[src*="co-occurrence"]) .lightbox-close,
+        .lightbox:has(img[src*="co-occurrence"]) .lightbox-nav {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* 針對共現網路分析圖的輪播卡片與置中設定 */
+        .custom-showcase-gallery .showcase-bg.showcase-bg-white-border {
+            background-color: #ffffff !important;
+            border: 1px solid var(--border-color) !important;
+            /* Match the border-radius already present in showcase-bg */
+        }
+
+        .custom-showcase-gallery .showcase-img.showcase-img-center {
+            position: relative !important;
+            top: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            width: auto !important;
+            max-width: 90% !important;
+            height: 90% !important;
+            transform: scale(1) !important;
+            margin: auto;
+            /* 置中 */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .custom-showcase-gallery .showcase-bg.showcase-bg-white-border:hover .showcase-img-center {
+            transform: scale(1.02) !important;
+        }
+
+        /* Gallery Thumbnails Crop (like workshop.html) — 排除 showcase 圖片 */
+        .horizontal-slider .slide-item img:not(.showcase-img) {
+            aspect-ratio: 3 / 2 !important;
+            object-fit: cover !important;
+            border-radius: 0 !important;
+            /* Keep sharp corners as requested earlier */
+        }
+
+        /* Insight Section Typography */
+        .insight-title {
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: var(--color-primary) !important;
+            margin-bottom: 0.5rem !important;
+            line-height: 1.2 !important;
+        }
+
+        #insight {
+            counter-reset: insight-counter;
+        }
+
+        .insight-sub-heading {
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            color: var(--color-primary) !important;
+            margin-top: 2.5rem !important;
+            /* Reduced from 3.5rem */
+            margin-bottom: 0.75rem !important;
+            /* Reduced from 1rem */
+            line-height: 1.5 !important;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            /* Reduced from 12px */
+        }
+
+        .insight-sub-heading::before {
+            counter-increment: insight-counter;
+            content: counter(insight-counter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            /* Reduced from 26px */
+            height: 24px;
+            /* Reduced from 26px */
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-size: 14px;
+            /* Reduced from 15px */
+            font-weight: 700;
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            /* Adjusted to vertically align with 20px font */
+        }
+
+        .insight-text {
+            font-size: 16px !important;
+            line-height: 28px !important;
+            /* Reduced from 32px to match 16px font */
+            color: var(--color-gray) !important;
+            margin-bottom: 0.75rem !important;
+            /* Reduced from 1.25rem */
+        }
+
+        .insight-sub-heading~.insight-text {
+            margin-left: 34px !important;
+            /* 24px badge + 10px gap */
+        }
+
+        /* Thesis Card Styles */
+        .thesis-card {
+            background-color: #f5f5f7;
+            border-radius: 8px;
+            padding: 1.25rem 32px;
+            /* Increased padding to compensate for negative margin */
+            margin-left: -6px;
+            margin-right: -6px;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            align-items: flex-start;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .thesis-card-icon {
+            font-size: 1.25rem;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        .thesis-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .thesis-card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.5;
+        }
+
+        .thesis-card-desc {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .thesis-card-link {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .thesis-card-link:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body class="case-study">
+    <a href="#main-content" class="skip-to-content">跳過導覽，直達主要內容</a>
+    <header class="header">
+        <div class="logo"><a href="https://chanweii.github.io/chanwei/"><img src="picture/index/logo.webp"
+                    alt="Chanwei portfolio homepage"></a></div>
+        <nav class="nav-pill">
+            <a href="https://chanweii.github.io/chanwei/#work" class="active"><span aria-hidden="true">• </span>Work</a>
+            <a href="about.html">About</a>
+            <a href="https://drive.google.com/file/d/1KGHvCbsBQpQbQfsNoHwlUCO3hRFraOjI/view?usp=drive_link"
+                target="_blank" rel="noopener noreferrer" aria-label="Resume，另開新分頁">Resume</a>
+        </nav>
+        <div class="header-right"></div>
+    </header>
+
+    <!-- Full-Bleed Hero Cover (滿版無縫封面圖) -->
+    <div class="case-hero-cover-full">
+        <img src="picture/reusable-containers/cover_reusable countainers.webp" alt="循環餐盒綠色設計開發策略"
+            class="case-hero-cover-img" fetchpriority="high" decoding="async">
+    </div>
+
+    <main class="case-container" id="main-content">
+        <!-- Hero Section -->
+        <section class="case-hero">
+            <h1 class="h1-zh">從產品生命週期與永續行為設計探討<br>循環餐盒綠色設計開發策略</h1>
+
+            <div class="case-tags hero-tags">
+                <span class="tag-outline">永續設計</span>
+                <span class="tag-outline">設計開發策略</span>
+            </div>
+        </section>
+
+        <!-- Meta Info Box -->
+        <div class="case-meta">
+            <div class="meta-item">
+                <span class="meta-label small-text">TIMELINE</span>
+                <p class="meta-value">9月 2024 – 2月 2026</p>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label small-text">SCOPE</span>
+                <p class="meta-value">循環餐盒產品生命週期、永續行為設計</p>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label small-text">METHODS</span>
+                <p class="meta-value">桌面研究、專家訪談 / 消費者質量化分析</p>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label small-text">OUTCOME</span>
+                <p class="meta-value">產品綠色設計準則、行為促進策略、系統運作建議</p>
+            </div>
+        </div>
+
+        <!-- Main Layout with Sidebar -->
+        <div class="case-layout" style="padding-top: 0; border-top: none;">
+            <!-- Sticky Sidebar -->
+            <aside class="case-sidebar">
+                <nav class="chapter-nav">
+                    <ul>
+                        <li><a href="#context" class="project-nav-item">CONTEXT</a></li>
+                        <li><a href="#framework" class="project-nav-item">FRAMEWORK</a></li>
+                        <li>
+                            <a href="#research" class="project-nav-item">RESEARCH</a>
+                            <ul class="nav-sub-list">
+                                <li><a href="#barriers" class="project-nav-sub-item">採用阻礙因素盤點</a></li>
+                                <li><a href="#regulations" class="project-nav-sub-item">法規與市場產品研究</a></li>
+                                <li><a href="#lca-hotspots" class="project-nav-sub-item">判讀生命週期衝擊熱點</a></li>
+                                <li><a href="#policy-framework" class="project-nav-sub-item">政策介入框架歸納</a></li>
+                                <li><a href="#case-studies" class="project-nav-sub-item">標竿平台案例分析</a></li>
+                                <li><a href="#design-guidelines" class="project-nav-sub-item">設計開發準則建構</a></li>
+                                <li><a href="#consumer-analysis" class="project-nav-sub-item">消費者統計與文本分析</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#insight" class="project-nav-item">INSIGHT</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Scrollable Content -->
+            <article class="case-content">
+
+                <!-- Thesis Card -->
+                <div class="thesis-card">
+                    <div class="thesis-card-icon">📘</div>
+                    <div class="thesis-card-content">
+                        <div class="thesis-card-title">Full Thesis：從產品生命週期與永續行為設計探討循環餐盒綠色設計開發策略</div>
+                        <div class="thesis-card-desc">本頁面聚焦於研究脈絡與洞察；完整研究架構、分析與討論請參見論文全文</div>
+                        <a href="https://drive.google.com/file/d/1VFyCYdclKZMQk0g7T7kcPFMoBJysi68A/view?usp=sharing"
+                            target="_blank" class="thesis-card-link">↗ 閱讀論文全文</a>
+                    </div>
+                </div>
+
+                <!-- Context Section -->
+                <section id="context" class="case-section">
+                    <h2 class="section-kicker">CONTEXT</h2>
+                    <h3 class="sub-heading">外帶便利的另一面，是大量一次性包裝與回收負擔</h3>
+                    <p class="body-text">2023 年台灣餐飲業營收突破新台幣 <strong>1.02
+                            兆元</strong>。隨著外帶與外送愈發便利，店家為維持餐點品質，投入了更多一次性包材。環境部統計處 (2024) 指出，台灣 2023 年一般廢棄物總量已達
+                        <strong>1,158
+                            萬噸</strong>，其中盛裝食物的紙容器，年消耗量推估約高達<strong> 82 億個</strong>。
+                    </p>
+                    <p class="body-text">紙餐盒為了防油、防漏，表面覆有塑膠淋膜；使用後殘留的油污與殘渣，提高了後續挑揀、清潔與紙塑分離的難度。<strong>相較一般紙製品約 20
+                            秒的散漿處理，紙容器的清洗與分解需耗時 40 分鐘，耗水與耗電量更增加約 1.5 倍</strong>；高昂的回收成本，使大量紙容器只能流入焚化處理 (大愛電視，2021)。</p>
+                    <div class="body-text" style="margin-top: 3rem; margin-bottom: 0;">
+                        <img src="picture/reusable-containers/background.webp" alt="研究背景" loading="lazy"
+                            decoding="async" style="width: 100%; height: auto; display: block;">
+                    </div>
+                </section>
+
+                <!-- Framework Section -->
+                <section id="framework" class="case-section">
+                    <h2 class="section-kicker">FRAMEWORK</h2>
+                    <h3 class="sub-heading">從產品生命週期與消費者採用條件，理解循環餐盒的設計需求</h3>
+                    <p class="body-text">相較一次性包裝，循環餐盒在特定生命週期條件，使用約 10 至 15 次後，其環境效益方能超越一次性容器 (Hitt et al., 2023; Rethink
+                        Plastic, 2023)。然而，McKinsey 預估至 2030
+                        年，全球循環包裝市場占比僅約 5% 或更低，其中外帶餐飲循環容器仍處於發展初期 (Feber, 2022)。</p>
+                    <p class="body-text">Consumers International and GlobeScan (2023) 針對 31 國、近 30,000
+                        位消費者的調查顯示，雖有 94%
+                        大眾支持綠色經濟轉型，<strong>但實際永續行為仍受限於心理障礙、社會規範、經濟成本、便利性與資訊落差</strong>等因素影響。</p>
+                    <p class="body-text">另一方面，<strong>循環經濟的落實亦高度仰賴利害關係人的協作、標準化流程、產品適應性，以及維修與價值保留等條件</strong>
+                        (Bocken
+                        et al., 2016; Den Hollander et al., 2017; Lacy et al.,
+                        2020)。現有循環餐盒設計仍缺乏整合產品、供應鏈與消費者需求的設計原則與權衡依據。</p>
+                    <p class="body-text">
+                        故本研究以<strong>綠色設計</strong>作為核心原則，經由「<strong>產品生命週期</strong>」框架，探索餐盒在<strong>設計、製造、運輸、使用、清潔與回收等</strong>環節的實務挑戰與設計需求；並從「<strong>永續行為設計</strong>」理論，關注影響消費者採取循環行為的內外部驅動因素，探討不同<strong>資訊、選擇、回饋、激勵、引導與干預等行為策略</strong>，對消費者接受度與長期使用意願的影響。最後整合供應端與消費者端的設計需求，提出循環餐盒設計開發策略，期望為相關產業提供可操作性的設計指引。
+                    </p>
+                    <div class="body-text"
+                        style="margin-top: 4.5rem; margin-bottom: 0; display: flex; flex-direction: column; align-items: center;">
+                        <img src="picture/reusable-containers/framework.webp" alt="研究架構" loading="lazy" decoding="async"
+                            style="width: 85%; height: auto; display: block;">
+                        <p class="slide-caption small-text" style="margin-top: 1.5rem; margin-bottom: 0;">
+                            概念架構圖
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Research Section -->
+                <section id="research" class="case-section">
+                    <h2 class="section-kicker">RESEARCH</h2>
+                    <h3 class="sub-heading">從桌面研究、專家訪談到消費者分析，逐步形成設計判斷與實務建議</h3>
+                    <p class="body-text">採用混合研究方法，透過桌面研究整理文獻、法規、市售產品、政策介入模式與標竿平台案例，建立問題脈絡與初步設計條件；再訪談 7
+                        位專家，理解實務限制與設計機會，形成初步設計準則。</p>
+                    <p class="body-text">後續以問卷與開放題文本分析，檢視消費者的知覺風險、產品偏好與行為策略接受度。最終綜整各階段研究結果，進一步討論 (1) 市場供需的結構條件；(2)
+                        產品生命週期的關鍵設計條件；(3) 消費者採用阻礙與設計介入機會；(4) 循環系統規模化運作的成立條件。</p>
+                    <div class="body-text" style="margin-top: 3rem; margin-bottom: 0;">
+                        <img src="picture/reusable-containers/process.webp" alt="研究流程" loading="lazy" decoding="async"
+                            style="width: 104%; height: auto; display: block; margin-left: -2%;">
+                    </div>
+                </section>
+
+                <section id="barriers" class="case-section">
+                    <h2 class="section-kicker">採用阻礙因素盤點</h2>
+                    <h3 class="sub-heading">從消費者研究拆解循環包裝的採用條件</h3>
+                    <p class="body-text">檢索 2018–2025
+                        年循環包裝與重複使用容器的消費者研究，拆解影響採用的知覺風險、便利性、行為成本、社會規範與採用意圖等因素。進一步歸納為阻礙因素與調節機制，作為後續訪談與問卷設計的觀察基礎。</p>
+                    <div class="body-text"
+                        style="margin-top: 3rem; margin-bottom: 0; display: flex; flex-direction: column; align-items: center;">
+                        <img src="picture/reusable-containers/接受與阻礙因素.webp" alt="接受與阻礙因素" loading="lazy"
+                            decoding="async" style="width: 84%; height: auto; display: block;">
+                        <p class="slide-caption small-text" style="margin-top: 1.5rem; margin-bottom: 0;">
+                            循環包裝採用之阻礙因素與調節機制
+                        </p>
+                    </div>
+                </section>
+
+                <section id="regulations" class="case-section">
+                    <h2 class="section-kicker">法規與市場產品研究</h2>
+                    <h3 class="sub-heading">從法規要求與市售產品，界定循環餐盒的設計條件</h3>
+                    <p class="body-text">從衛福部食品器具相關規範，界定食品安全與清潔底線；再從市售產品分析，整理材質、結構、製造與回收管理等設計特徵，作為後續產品設計條件建構的基礎。</p>
+                    <style>
+                        .custom-showcase-gallery .horizontal-slider {
+                            padding: 0;
+                            margin: 0;
+                            scroll-snap-type: x mandatory;
+                        }
+
+                        .custom-showcase-gallery .slider-track {
+                            gap: 0;
+                            /* No peek */
+                            width: 100%;
+                            /* Ensure track doesn't stretch past content */
+                        }
+
+                        .custom-showcase-gallery .slide-item {
+                            width: 100%;
+                            min-width: 100%;
+                            /* Force 100% viewport of slider */
+                            flex: 0 0 100%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: stretch;
+                            /* Fix outer frame width */
+                        }
+
+                        .custom-showcase-gallery .showcase-bg {
+                            background-color: #f3f3f3;
+                            border-radius: 12px;
+                            width: 100%;
+                            height: 380px;
+                            /* 固定外框高度，可自行調整 */
+                            position: relative;
+                            /* 讓內部圖片絕對定位 */
+                            display: flex;
+                            justify-content: center;
+                            overflow: clip;
+                            /* 使用 clip 取代 hidden，防止 focus 時被瀏覽器強制捲動跑版 */
+                        }
+
+                        .custom-showcase-gallery .showcase-img {
+                            position: absolute;
+                            /* 絕對定位，不影響外框大小 */
+                            bottom: 0px;
+                            /* 距離底部的位置，負數會往下沉 */
+                            left: 50%;
+                            /* 搭配底下的 translateX 確保置中 */
+                            width: 72% !important;
+                            /* 圖片的實體縮放大小 */
+                            max-width: none !important;
+                            height: auto !important;
+                            border-radius: 0 !important;
+                            aspect-ratio: auto !important;
+                            /* 覆蓋全域的 3/2 裁切設定，避免上下被切掉 */
+                            object-fit: contain !important;
+                            /* 確保不被裁切 */
+                            transform: translateX(-50%) translateY(65px) scale(1);
+                            /* translateX(-50%)：置中
+                               translateY(20px)：往下位移
+                               scale(1)：額外的縮放倍率 */
+                            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                            display: block;
+                        }
+
+                        .custom-showcase-gallery .showcase-bg:hover .showcase-img {
+                            transform: translateX(-50%) translateY(63px) scale(1.01);
+                            /* hover 時的變化 */
+                        }
+
+                        .custom-showcase-gallery .slider-pagination {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-top: 2rem;
+                            margin-bottom: 1rem;
+                            width: 100%;
+                        }
+
+                        .custom-showcase-gallery .custom-slider-captions {
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-top: 2rem;
+                            margin-bottom: 1rem;
+                        }
+
+                        .custom-showcase-gallery .slider-pagination+.custom-slider-captions {
+                            margin-top: 0;
+                            /* 如果上面有分頁圓點，就取消 top margin 避免間距過大 */
+                        }
+
+                        .custom-showcase-gallery .custom-caption {
+                            margin: 0;
+                            font-size: 0.9375rem;
+                            color: #111;
+                            /* Darker color like normal captions */
+                            font-weight: 500;
+                            text-align: center;
+                        }
+                    </style>
+                    <div class="gallery-container custom-showcase-gallery" style="margin-top: 3rem;">
+                        <div class="horizontal-slider">
+                            <div class="slider-track">
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/food-safety-regulations.webp"
+                                            alt="食品安全規範與設計需求" loading="lazy" decoding="async" class="showcase-img">
+                                    </div>
+                                </div>
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/market-product-analysis.webp"
+                                            alt="市售循環餐盒產品分析" loading="lazy" decoding="async" class="showcase-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-pagination">
+                            <button class="dot active" aria-label="1"></button>
+                            <button class="dot" aria-label="2"></button>
+                        </div>
+                        <div class="custom-slider-captions">
+                            <p class="custom-caption" style="display: block;">食品安全規範與設計需求</p>
+                            <p class="custom-caption" style="display: none;">市售循環餐盒產品分析</p>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const customSlider = document.querySelector('.custom-showcase-gallery .horizontal-slider');
+                            const customCaptions = document.querySelectorAll('.custom-showcase-gallery .custom-caption');
+
+                            if (customSlider && customCaptions.length > 0) {
+                                customSlider.addEventListener('scroll', () => {
+                                    const index = Math.round(customSlider.scrollLeft / customSlider.clientWidth);
+                                    customCaptions.forEach((caption, i) => {
+                                        caption.style.display = (i === index) ? 'block' : 'none';
+                                    });
+                                });
+                            }
+                        });
+                    </script>
+                </section>
+
+                <section id="lca-hotspots" class="case-section">
+                    <h2 class="section-kicker">判讀生命週期衝擊熱點</h2>
+                    <h3 class="sub-heading">從既有量化 LCA 研究，辨識系統邊界與衝擊熱點</h3>
+                    <p class="body-text">檢索循環容器相關的量化生命週期評估 (LCA) 研究，辨識不同生命週期階段的環境衝擊熱點與關鍵限制，並整理對應的設計原則。</p>
+                    <div class="gallery-container custom-showcase-gallery" style="margin-top: 3rem;">
+                        <div class="horizontal-slider">
+                            <div class="slider-track">
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/lifecycle-design-principles.webp"
+                                            alt="生命週期挑戰與設計原則" loading="lazy" decoding="async" class="showcase-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-slider-captions" style="margin-top: 2rem;">
+                            <p class="custom-caption" style="display: block;">生命週期挑戰與設計原則</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="policy-framework" class="case-section">
+                    <h2 class="section-kicker">政策介入框架歸納</h2>
+                    <h3 class="sub-heading">從國際政策與循環容器推動趨勢，整理循環系統的推動機制</h3>
+                    <p class="body-text">比較歐洲、美國、亞洲與台灣的循環容器政策案例，從包裝與塑膠稅制、EPR
+                        制度、餐飲服務業再利用義務規範，以及補助與市場能力建構等面向，歸納循環容器系統推動的政策介入框架。</p>
+                    <div class="body-text"
+                        style="margin-top: 3rem; margin-bottom: 0; display: flex; flex-direction: column; align-items: center;">
+                        <div class="slide-item"
+                            style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                            <img src="picture/reusable-containers/policy-intervention-framework.webp" alt="政策介入框架歸納"
+                                loading="lazy" decoding="async"
+                                style="width: 100% !important; height: auto !important; display: block; cursor: zoom-in; border-radius: 0 !important;">
+                            <p class="slide-caption small-text" style="margin-top: 1.5rem; margin-bottom: 0;">
+                                政策介入框架歸納
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="case-studies" class="case-section">
+                    <h2 class="section-kicker">標竿平台案例分析</h2>
+                    <h3 class="sub-heading">從國內外循環餐盒平台，梳理產品與系統設計的具體做法</h3>
+                    <p class="body-text">
+                        比較國內外代表性的循環餐盒平台，從容器設計、營運模式與技術整合、歸還模式與信任制度三個面向進行案例分析，再依材質、結構、消費者端與商家端租借模式、物流與清洗維運、數位追蹤及信任溝通等面向，梳理
+                        13 項產品與系統設計作法。</p>
+                    <div class="gallery-container custom-showcase-gallery" style="margin-top: 3rem;">
+                        <div class="horizontal-slider">
+                            <div class="slider-track">
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/benchmark-platform-practices.webp"
+                                            alt="歸納標竿平台設計作法" loading="lazy" decoding="async" class="showcase-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="custom-slider-captions" style="margin-top: 2rem;">
+                            <p class="custom-caption" style="display: block;">歸納標竿平台設計作法</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="design-guidelines" class="case-section">
+                    <h2 class="section-kicker">設計開發準則建構</h2>
+                    <h3 class="sub-heading">將循環餐盒各階段的必要條件、摩擦與風險，整理為設計回應</h3>
+                    <p class="body-text">整合前期研究與專家實務觀點，將各生命週期階段涉及的必要條件、摩擦與風險，整理為設計開發準則，供後續產品與系統規劃者辨識設計條件，作為規劃方向的參考。</p>
+                    <div class="gallery-container custom-showcase-gallery" style="margin-top: 3rem;">
+                        <div class="horizontal-slider">
+                            <div class="slider-track">
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/design-guidelines-01.webp"
+                                            alt="循環餐盒產品生命週期設計開發準則-1" loading="lazy" decoding="async"
+                                            class="showcase-img">
+                                    </div>
+                                </div>
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/design-guidelines-02.webp"
+                                            alt="循環餐盒產品生命週期設計開發準則-2" loading="lazy" decoding="async"
+                                            class="showcase-img">
+                                    </div>
+                                </div>
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/design-guidelines-03.webp"
+                                            alt="循環餐盒產品生命週期設計開發準則-3" loading="lazy" decoding="async"
+                                            class="showcase-img showcase-img-narrow">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-pagination">
+                            <button class="dot active" aria-label="1"></button>
+                            <button class="dot" aria-label="2"></button>
+                            <button class="dot" aria-label="3"></button>
+                        </div>
+                        <div class="custom-slider-captions">
+                            <p class="custom-caption" style="display: block;">循環餐盒產品生命週期設計開發準則-1</p>
+                            <p class="custom-caption" style="display: none;">循環餐盒產品生命週期設計開發準則-2</p>
+                            <p class="custom-caption" style="display: none;">循環餐盒產品生命週期設計開發準則-3</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="consumer-analysis" class="case-section">
+                    <h2 class="section-kicker">消費者統計與文本分析</h2>
+                    <h3 class="sub-heading">從偏好差異，判斷介入策略的優先性與適用條件</h3>
+                    <p class="body-text">
+                        將「循環餐盒設計開發準則」轉化為接受度量表與偏好排序，比較各項設計策略之接受程度、相對優先序與偏好異質性；並採用分量迴歸分析，檢視不同行為介入策略在環境意識、內在動機、知覺風險與社會影響等不同程度下的作用差異，藉以辨識哪些策略具較一致的介入潛力，哪些對特定內外在行為條件的消費者更值得優先考慮。
+                    </p>
+                    <p class="body-text">此外，針對開放性問答進行詞頻與共現網路分析，捕捉封閉題項未預設的關注點與延伸脈絡。</p>
+                    <div class="gallery-container custom-showcase-gallery" style="margin-top: 3rem;">
+                        <div class="horizontal-slider">
+                            <div class="slider-track">
+                                <div class="slide-item">
+                                    <div class="showcase-bg" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/quantile-regression.webp"
+                                            alt="不同策略與內在動機的分量迴歸分析" loading="lazy" decoding="async" class="showcase-img">
+                                    </div>
+                                </div>
+                                <div class="slide-item">
+                                    <!-- 第二張特別樣式：白色背景、外框、水平置中 -->
+                                    <div class="showcase-bg showcase-bg-white-border" role="button" tabindex="0"
+                                        onclick="if(event.target !== this.querySelector('.showcase-img')) this.querySelector('.showcase-img').click()">
+                                        <img src="picture/reusable-containers/co-occurrence.webp" alt="開放性問答共現網路分析"
+                                            loading="lazy" decoding="async" class="showcase-img showcase-img-center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-pagination">
+                            <button class="dot active" aria-label="1"></button>
+                            <button class="dot" aria-label="2"></button>
+                        </div>
+                        <div class="custom-slider-captions">
+                            <p class="custom-caption" style="display: block;">不同策略與內在動機的分量迴歸分析</p>
+                            <p class="custom-caption" style="display: none;">開放性問答共現網路分析</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Insight Section -->
+                <section id="insight" class="case-section">
+                    <h2 class="insight-title">INSIGHT</h2>
+                    <p class="insight-text">綜整研究分析與討論，節錄較具設計與營運意義的發現與建議。完整分析與討論可參見論文第五章。</p>
+
+                    <h3 class="insight-sub-heading">依餐食特性設定密封、透氣與操作安全條件</h3>
+                    <p class="insight-text">
+                        熱食若過度密封，容易因悶氣導致餐點口感變質，或因內部蒸氣壓力造成蓋體彈開的安全隱患。因此，餐盒設計建議採用「<strong>洩壓孔</strong>」或「<strong>通風蓋</strong>」，平衡密封與透氣需求；<strong>湯類熱食</strong>則需將「<strong>抗傾倒</strong>」與「<strong>高密封性</strong>」視為剛性條件，若採用不鏽鋼等高導熱性材質，則應進一步考量隔熱結構與提把等操作安全設計，以降低燙傷風險。
+                    </p>
+
+                    <h3 class="insight-sub-heading">塑膠材具營運優勢，不鏽鋼則具較高的初始偏好</h3>
+                    <p class="insight-text">聚丙烯 (PP)
+                        在耐用度、重量與成本之間取得良好平衡，為現行循環餐盒系統的主流材料。惟研究排序結果顯示，<strong>受試者整體偏好「不鏽鋼」材質</strong>，其次為「再生材質」(如 rPET、生質
+                        PP)，反映塑膠材在消費者初始知覺上，可能與熱穩定性、化學物質遷移等健康疑慮存在較高的知覺風險與信任落差。</p>
+
+                    <h3 class="insight-sub-heading">消費者對循環餐盒的採納阻礙，根源於系統認知與掌控能力匱乏</h3>
+                    <p class="insight-text" style="margin-bottom: 1rem;">
+                        研究顯示，消費者對<strong>衛生疑慮本質為對「無法預知他人使用行為、清潔過程不可見、材料反覆重用的安全性」等不確定性焦慮</strong>，放大潛在風險感知；<strong>便利性阻礙，則來自「搜尋歸還點、額外攜帶與歸還、押金」等過高的系統交易成本</strong>，在決策當下壓倒初始的行為動機。
+                    </p>
+                    <p class="insight-text">
+                        在設計策略上，「<strong>外部機構標章</strong>」對高內在動機族群，可作為價值權證的信任背書；「<strong>參與者經驗分享</strong>」則在不同內在動機族群皆具提升效力，但隨分位數提升而遞減，反映外部成功經驗參照，對低內在動機族群更具提升行為可及性的信心。
+                    </p>
+
+                    <h3 class="insight-sub-heading">社會可見性可形成嘗試吸引力，可見行動貢獻則支撐持續參與</h3>
+                    <p class="insight-text" style="margin-bottom: 1rem;">開放性回饋中，「外觀／設計」與「聯名／合作」相關詞頻共 43
+                        次，顯示<strong>當循環餐盒具備展示性、討論度與自我表達等「社會可見性」(Social Visibility) 功能時，有助於提升消費者初次嘗試的吸引動機</strong>。</p>
+                    <p class="insight-text">
+                        在持續參與方面，消費者內在動機多源自「<strong>群體價值認同</strong>」及「<strong>可見的行為貢獻</strong>」，並與<strong>生態回饋
+                            (Eco-feedback)
+                            策略</strong>具較顯著的關聯作用。建議將循環實踐設計為具社會參照的正向回饋。</p>
+                    <p class="insight-text">
+                        敘述統計中，「<strong>累積使用的總體貢獻</strong>」(M = 4.15) 與「<strong>提供預期效益目標</strong>」(M = 4.04)
+                        呈較高偏好；分量迴歸亦顯示，「正向的社會影響力表現回饋」在不同內在動機程度下皆具作用效力；「遊戲化設計」將行為貢獻轉化為虛擬資產的累積與展示，則較能強化「中、高內在動機」群體持續投入意圖。
+                    </p>
+
+                    <h3 class="insight-sub-heading">去中心化清洗作為擴張前期的過渡性策略</h3>
+                    <p class="insight-text" style="margin-bottom: 1rem;">
+                        在系統營運初期，尚未達到規模經濟且資本支出受限時，採取<strong>「去中心化」清洗</strong>，善用合作餐廳既有的洗滌設施與營運餘裕進行在地清洗與重用，以降低運載規模不足、路線分散所造成的單位成本與外部協調負擔。
+                    </p>
+                    <p class="insight-text">
+                        然而，隨據點密度與使用量增加，系統應逐步轉向「<strong>集中式清洗</strong>」，以維持長期品質控管。集中處理模式雖因逆物流運輸增加溫室氣體排放，但規模化的清洗周轉，能有效攤提單位容器的能源與水資源使用成本，並維持一致的清潔標準建立消費者對系統衛生品質的信任；同時，減輕熱點商家的倉儲與洗滌負荷。將清洗責任從餐飲業者端移出，也有助於降低額外清潔勞務造成的導入負擔，提升商家參與意願。
+                    </p>
+                </section>
+
+                <!-- 更多作品 (More Projects) -->
+                <section class="more-projects-section">
+                    <h2 class="more-projects-title">更多作品</h2>
+                    <div class="more-projects-grid">
+                        <!-- Energy Saver -->
+                        <a href="energysaver.html" class="more-project-card">
+                            <div class="more-project-img-wrapper">
+                                <img src="picture/index/cover_energy saver.webp" alt="Energy Saver 節能家電選購決策支援 APP"
+                                    loading="lazy" decoding="async">
+                            </div>
+                            <div class="work-tags">
+                                <span class="work-tag">UI/UX 設計</span>
+                            </div>
+                            <h3 class="more-project-name">Energy Saver<br>節能家電選購決策支援 APP</h3>
+                        </a>
+                        <!-- Workshop -->
+                        <a href="workshop.html" class="more-project-card">
+                            <div class="more-project-img-wrapper">
+                                <img src="picture/index/cover_icid.webp" alt="ICID 跨文化整合設計工作營" loading="lazy"
+                                    decoding="async">
+                            </div>
+                            <div class="work-tags">
+                                <span class="work-tag">服務設計</span>
+                                <span class="work-tag">WORKSHOP</span>
+                            </div>
+                            <h3 class="more-project-name">ICID 跨文化整合設計工作營<br>(議程/引導師)</h3>
+                        </a>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+
+    <!-- Custom Cursor & Lightbox Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
