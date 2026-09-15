@@ -204,7 +204,22 @@ document.addEventListener('DOMContentLoaded', () => {
             createPills();
 
             const runner = Runner.create();
-            Runner.run(runner, engine);
+            
+            // 使用 IntersectionObserver 來在不可見時暫停物理引擎，節省效能
+            if ('IntersectionObserver' in window && hero) {
+                const heroObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            Runner.run(runner, engine);
+                        } else {
+                            Runner.stop(runner);
+                        }
+                    });
+                }, { threshold: 0.0 });
+                heroObserver.observe(hero);
+            } else {
+                Runner.run(runner, engine);
+            }
 
             // 限制旋轉角度，防止上下顛倒
             Matter.Events.on(engine, 'beforeUpdate', function () {
@@ -479,58 +494,65 @@ function setupSliderPagination() {
             scrollbarThumb.style.marginLeft = thumbLeft + 'px';
         }
 
-        // --- SCROLL EVENT: update dots + scrollbar ---
+        // --- SCROLL EVENT: update dots + scrollbar (Throttled for Performance) ---
+        let isScrolling = false;
         slider.addEventListener('scroll', () => {
-            // Update dots
-            if (dots.length > 0) {
-                let closestIndex = 0;
-                let minDistance = Infinity;
-                const sliderLeft = slider.scrollLeft;
+            if (isScrolling) return;
+            isScrolling = true;
+            
+            window.requestAnimationFrame(() => {
+                // Update dots
+                if (dots.length > 0) {
+                    let closestIndex = 0;
+                    let minDistance = Infinity;
+                    const sliderLeft = slider.scrollLeft;
 
-                items.forEach((item, index) => {
-                    const distance = Math.abs(item.offsetLeft - track.offsetLeft - sliderLeft);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestIndex = index;
+                    items.forEach((item, index) => {
+                        const distance = Math.abs(item.offsetLeft - track.offsetLeft - sliderLeft);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestIndex = index;
+                        }
+                    });
+
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === closestIndex);
+                    });
+
+                    // Update synchronized texts if they exist
+                    const archiveInner = slider.closest('.archive-inner-content');
+                    if (archiveInner) {
+                        const slideTexts = archiveInner.querySelectorAll('.slider-texts .slide-text');
+                        slideTexts.forEach((text, index) => {
+                            if (index === closestIndex) {
+                                text.classList.add('active');
+                                text.style.display = 'block';
+                            } else {
+                                text.classList.remove('active');
+                                text.style.display = 'none';
+                            }
+                        });
                     }
-                });
 
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === closestIndex);
-                });
-
-                // Update synchronized texts if they exist
-                const archiveInner = slider.closest('.archive-inner-content');
-                if (archiveInner) {
-                    const slideTexts = archiveInner.querySelectorAll('.slider-texts .slide-text');
-                    slideTexts.forEach((text, index) => {
-                        if (index === closestIndex) {
-                            text.classList.add('active');
-                            text.style.display = 'block';
-                        } else {
-                            text.classList.remove('active');
-                            text.style.display = 'none';
-                        }
-                    });
+                    // Update custom showcase gallery captions
+                    const customGallery = slider.closest('.custom-showcase-gallery');
+                    if (customGallery) {
+                        const customCaptions = customGallery.querySelectorAll('.custom-slider-captions .custom-caption');
+                        customCaptions.forEach((caption, index) => {
+                            if (index === closestIndex) {
+                                caption.style.display = 'block';
+                            } else {
+                                caption.style.display = 'none';
+                            }
+                        });
+                    }
                 }
 
-                // Update custom showcase gallery captions
-                const customGallery = slider.closest('.custom-showcase-gallery');
-                if (customGallery) {
-                    const customCaptions = customGallery.querySelectorAll('.custom-slider-captions .custom-caption');
-                    customCaptions.forEach((caption, index) => {
-                        if (index === closestIndex) {
-                            caption.style.display = 'block';
-                        } else {
-                            caption.style.display = 'none';
-                        }
-                    });
-                }
-            }
-
-            // Update scrollbar
-            updateScrollbar();
-        });
+                // Update scrollbar
+                updateScrollbar();
+                isScrolling = false;
+            });
+        }, { passive: true });
 
         // --- CLICK DOTS to scroll ---
         // --- CLICK DOTS to scroll ---
@@ -616,19 +638,65 @@ function setupSliderPagination() {
     });
 }
 
+function loadImageProgressively(image) {
+    if (!image.dataset.src) return;
+    
+    const originalSrc = image.dataset.src;
+    const extMatch = originalSrc.match(/\.([^.]+)$/);
+    
+    // 如果不是標準的 picture 目錄圖片，直接退回一般載入
+    if (!extMatch || !originalSrc.includes('picture/')) {
+        image.src = originalSrc;
+        image.removeAttribute('data-src');
+        if (image.complete) {
+            image.classList.add('loaded');
+        } else {
+            image.addEventListener('load', () => image.classList.add('loaded'));
+        }
+        return;
+    }
+    
+    const ext = extMatch[0];
+    const basePath = originalSrc.slice(0, -ext.length);
+    // GitHub Action 會產生對應的 thumb 與 web 版本 (固定為 webp)
+    const thumbSrc = `${basePath}-thumb.webp`;
+    const webSrc = `${basePath}-web.webp`;
+    
+    // 1. 先載入極小縮圖並加上模糊特效
+    image.classList.add('blur-up');
+    image.src = thumbSrc;
+    image.removeAttribute('data-src');
+    
+    // 2. 在背景默默加載網頁版大圖
+    const hdImage = new Image();
+    hdImage.src = webSrc;
+    
+    hdImage.onload = () => {
+        // 3. 網頁圖下載完成，無縫切換並解除模糊
+        image.src = webSrc;
+        image.dataset.highres = originalSrc; // 儲存原圖路徑供 Lightbox 使用
+        
+        requestAnimationFrame(() => {
+            image.classList.remove('blur-up');
+            image.classList.add('loaded');
+        });
+    };
+    
+    hdImage.onerror = () => {
+        // 如果 GitHub Action 還沒跑完，找不到 web 圖，就退回原圖
+        image.src = originalSrc;
+        image.dataset.highres = originalSrc;
+        image.classList.remove('blur-up');
+        image.classList.add('loaded');
+    };
+}
+
 function loadFirstImages(container, count) {
     const lazyImages = container.querySelectorAll('img.lazy-gallery-img');
     for (let i = 0; i < Math.min(lazyImages.length, count); i++) {
         const image = lazyImages[i];
         if (image.dataset.src) {
-            image.src = image.dataset.src;
-            image.removeAttribute('data-src');
-            image.addEventListener('load', () => {
-                image.classList.add('loaded');
-            });
-            if (image.complete) {
-                image.classList.add('loaded');
-            }
+            loadImageProgressively(image);
         }
     }
 }
@@ -642,14 +710,7 @@ function initLazyLoading() {
                 if (entry.isIntersecting) {
                     const image = entry.target;
                     if (image.dataset.src) {
-                        image.src = image.dataset.src;
-                        image.removeAttribute('data-src');
-                        image.addEventListener('load', () => {
-                            image.classList.add('loaded');
-                        });
-                        if (image.complete) {
-                            image.classList.add('loaded');
-                        }
+                        loadImageProgressively(image);
                     }
                     observer.unobserve(image);
                 }
@@ -995,7 +1056,8 @@ document.addEventListener('mouseup', (e) => {
         const updateLightboxContent = () => {
             if (currentGalleryImages.length > 0 && currentImageIndex >= 0 && currentImageIndex < currentGalleryImages.length) {
                 const currentImg = currentGalleryImages[currentImageIndex];
-                lightboxImg.src = currentImg.src;
+                // 如果有原圖的高畫質路徑，就使用高畫質路徑，否則使用現有的 src
+                lightboxImg.src = currentImg.dataset.highres || currentImg.src;
 
                 // Update caption
                 if (lightboxCaption) {

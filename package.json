@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-image-optimizer",
+  "version": "1.0.0",
+  "description": "Progressive image loading blur-up generator",
+  "private": true,
+  "scripts": {
+    "optimize": "node scripts/optimize-images.js"
+  },
+  "dependencies": {
+    "sharp": "^0.32.6"
+  }
+}
