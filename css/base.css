@@ -101,4 +101,10 @@ p {
     }
 }
 
-
+/* Progressive Image Loading (Blur-up) */
+.lazy-gallery-img {
+    transition: filter 0.4s ease-out, opacity 0.4s ease-out;
+}
+.blur-up {
+    filter: blur(10px);
+}
