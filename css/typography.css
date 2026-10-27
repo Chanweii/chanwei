@@ -3,10 +3,11 @@
    TYPOGRAPHY SYSTEM
    ========================================= */
 .body-text {
-    font-size: 1rem;
-    /* 16px */
+    font-size: var(--font-size-body, 1.0625rem);
+    /* 17px */
     font-weight: 400;
-    line-height: 28px;
+    line-height: var(--line-height-body, 2.0);
+    /* 17px * 2.0 = 34px，現代雜誌感大留白排版 */
     letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
     color: var(--text-body);

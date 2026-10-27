@@ -20,12 +20,13 @@ img {
 
 body {
     font-family: var(--font-main);
+    font-size: var(--font-size-body, 1.0625rem);
     background-color: var(--bg-color);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     letter-spacing: 0.05em;
-    line-height: 1.6;
+    line-height: var(--line-height-body, 2.0);
     font-variant-east-asian: normal;
     font-feature-settings: "palt" 0;
 }

@@ -97,6 +97,10 @@
     --color-black: #1A1A1A;
     --color-gray: #4f4f4f;
 
+    /* Body Typography System Tokens (17px / 2.0 Line Height) */
+    --font-size-body: 1.0625rem; /* 17px */
+    --line-height-body: 2.0;     /* 17px * 2.0 = 34px，現代雜誌感大留白排版 */
+
     /* Grid / Layout */
     --grid-margin: 2.5rem; /* 40px */
     --grid-gap: 3rem; /* 48px - 放大全域間距，維持嚴格對齊，給予文字更多呼吸空間 */

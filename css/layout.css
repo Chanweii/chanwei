@@ -222,8 +222,8 @@
 }
 
 .about p {
-    font-size: 1.0625rem;
-    line-height: 36px;
+    font-size: var(--font-size-body, 1.0625rem);
+    line-height: var(--line-height-body, 2.0); /* 34px (2.0倍) */
     color: #222222;
     text-align: justify;
     letter-spacing: 0.05em;
@@ -520,8 +520,8 @@
 /* Container query for desktop-br removed to allow intentional breaking on desktop */
 
 .work-desc {
-    font-size: 15px;
-    /* was 1rem (16px) */
+    font-size: 1rem;
+    /* 16px */
     font-weight: 400;
     line-height: 1.6;
     color: var(--text-body);
@@ -647,19 +647,19 @@
 }
 
 .footer-greeting-main {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: 0;
+    font-size: clamp(26px, 2.5vw, 34px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
 }
 
 .footer-greeting-sub {
-    margin-top: 1rem;
-    font-size: 1rem;
+    margin-top: 0.75rem;
+    font-size: clamp(20px, 1.8vw, 24px);
     font-weight: 400;
-    line-height: 1.8;
-    letter-spacing: 0.04em;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
     color: #4A4A4A;
 }
 
@@ -717,10 +717,10 @@
 }
 
 .archive-header-wrapper p {
-    font-size: 15px;
-    /* Match .work-desc */
+    font-size: 1rem;
+    /* Match .work-desc (16px) */
     color: var(--text-secondary);
-    line-height: 28px;
+    line-height: 1.6;
     margin-left: 0;
     /* Strictly flush left */
     max-width: 800px;
@@ -957,9 +957,10 @@
     /* 上下留白 */
     color: #222222;
     /* High contrast text on gray background */
-    font-size: 15px;
-    /* was 1rem (16px) */
-    line-height: 28px;
+    font-size: var(--font-size-body, 1.0625rem);
+    /* 17px */
+    line-height: var(--line-height-body, 2.0);
+    /* 34px (2.0倍) */
     display: flex;
     flex-direction: column;
     gap: 2rem;
