@@ -957,10 +957,10 @@
     /* 上下留白 */
     color: #222222;
     /* High contrast text on gray background */
-    font-size: var(--font-size-body, 1.0625rem);
-    /* 17px */
-    line-height: var(--line-height-body, 2.0);
-    /* 34px (2.0倍) */
+    font-size: 1rem;
+    /* 16px - 次要專案收合詳情，精緻細膩的閱讀層級 */
+    line-height: 2.0;
+    /* 32px (2.0倍行高) */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -1056,8 +1056,9 @@
     }
 
     .archive-text-content .slider-texts {
-        position: absolute;
-        top: 110px; /* Adjusted to reduce gap */
+        position: relative;
+        top: auto;
+        margin-top: 2rem;
         width: 100%;
     }
 
